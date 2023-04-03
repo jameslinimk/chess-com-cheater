@@ -1,0 +1,14 @@
+{
+    "name": "chess-com-cheater",
+    "main": "index.js",
+    "scripts": {
+        "build": "shx rm -rf dist && shx mkdir dist && shx rm -rf temp && shx mkdir temp && shx cp -r static/* dist && tsc -B && browserify temp/content.js -o temp/content.bundle.js && uglifyjs temp/content.bundle.js -o dist/content.bundle.min.js && shx rm -rf temp && shx echo Done!"
+    },
+    "devDependencies": {
+        "@types/chrome": "^0.0.228",
+        "browserify": "^17.0.0",
+        "shx": "^0.3.4",
+        "typescript": "^5.0.3",
+        "uglify-js": "^3.17.4"
+    }
+}

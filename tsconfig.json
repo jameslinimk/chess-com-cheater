@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"watch": true,
+		"lib": [
+			"ESNext",
+			"DOM"
+		],
+		"types": [
+			"chrome"
+		],
+		"module": "CommonJS",
+		"moduleResolution": "node",
+		"skipLibCheck": true,
+		"outDir": "temp"
+	},
+	"exclude": [
+		"node_modules",
+		"dist",
+		"temp"
+	]
+}
