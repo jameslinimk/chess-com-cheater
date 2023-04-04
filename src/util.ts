@@ -24,3 +24,15 @@ export const retrieveWindowVariables = (variables: string[]): Record<string, any
     document.getElementById("tmpScript").remove()
     return ret
 }
+
+export const unselectAll = () => {
+    if (window.getSelection) {
+        if (window.getSelection().empty) {
+            window.getSelection().empty()
+        } else if (window.getSelection().removeAllRanges) {
+            window.getSelection().removeAllRanges()
+        }
+    } else if ((document as any).selection) {
+        ;(document as any).selection.empty()
+    }
+}
