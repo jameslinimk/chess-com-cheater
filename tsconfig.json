@@ -9,7 +9,7 @@
 		"types": [
 			"chrome"
 		],
-		"module": "CommonJS",
+		"module": "ESNext",
 		"moduleResolution": "node",
 		"skipLibCheck": true,
 		"outDir": "temp"

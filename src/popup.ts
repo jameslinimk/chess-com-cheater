@@ -1,4 +1,4 @@
-import { getCurrentMove, getFen, validateFen } from "./content.js"
+import { getChess } from "./content.js"
 import { unselectAll } from "./util.js"
 
 const html = `
@@ -158,10 +158,8 @@ export const loadPopup = () => {
 
     const testButton = document.getElementById("cc-test-button") as HTMLButtonElement
     testButton.addEventListener("click", () => {
-        const fen = getFen()
-        const valid = validateFen(fen)
-        const current = getCurrentMove()
+        const chessFen = getChess().fen()
 
-        console.log({ fen, valid, current })
+        console.log({ chess: chessFen })
     })
 }

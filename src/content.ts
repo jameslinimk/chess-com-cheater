@@ -1,6 +1,7 @@
+import { Chess } from "chess.js"
+import { engine } from "./engine.js"
 import { loadPopup } from "./popup.js"
-import { Config } from "./types.js"
-import { colorLog, retrieveWindowVariables } from "./util.js"
+import { colorLog } from "./util.js"
 
 export const getFen = () => {
     const fen = []
@@ -8,8 +9,8 @@ export const getFen = () => {
         let row = ""
         let empty = 0
         for (let x = 1; x <= 8; x++) {
-            // TODO Filter by non-highlight
-            const classList = document.getElementsByClassName(`square-${x}${y}`)?.[0]?.classList
+            const elms = document.getElementsByClassName(`square-${x}${y}`)
+            const classList = Array.from(elms).find((e) => !e.classList.contains("highlight"))?.classList
             const classes = classList ? Array.from(classList) : []
 
             let pieceStr = classes.find((c) => c.length === 2)
@@ -36,52 +37,21 @@ export const getFen = () => {
     return fen.join("/")
 }
 
-export const validateFen = (fen: string) => {
-    const pieces = "rnbqkbnrpRNBQKBNRP".split("")
-    const numbers = "12345678".split("")
-
-    const splitFen = fen.split("/")
-    if (splitFen.length !== 8) return false
-    for (const row of splitFen) {
-        let sum = 0
-        for (const c of row) {
-            if (pieces.includes(c)) {
-                sum += 1
-                continue
-            }
-
-            if (numbers.includes(c)) {
-                sum += parseInt(c)
-                continue
-            }
-
-            return false
-        }
-        if (sum !== 8) return false
+export const getChess = () => {
+    const moves = []
+    const moveDivs = document.querySelectorAll("div[data-ply]:not(.time-white):not(.time-black)")
+    for (const moveDiv of Array.from(moveDivs)) {
+        const piece = moveDiv.children[0]?.getAttribute("data-figurine") ?? ""
+        const mv = moveDiv.textContent
+        moves.push(mv.endsWith("=") ? mv + piece : piece + mv)
     }
-    return true
+
+    const chess = new Chess()
+    chess.loadPgn(moves.join(" "))
+    return chess
 }
 
-export const getCurrentMove = () => {
-    const moveDivs = document.querySelectorAll("div[data-ply]")
-    if (moveDivs.length === 0) return "white"
+colorLog("green", "Starting chess.com cheats...")
+engine
 
-    const lastMove = parseInt(moveDivs[moveDivs.length - 1].getAttribute("data-ply"))
-    if (lastMove % 2 === 0) return "white"
-    return "black"
-}
-
-const defaultEngine = "/bundles/app/js/vendor/jschessengine/stockfish.asm.1abfa10c.js"
-
-const main = async () => {
-    colorLog("green", "Starting chess.com cheats...")
-
-    const config: Config = retrieveWindowVariables(["Config"])["Config"]
-    if (!config) colorLog("red", "Config not found, reverting to default engine worker path...")
-
-    const engine = new Worker(config?.pathToNonWasmEngine ?? defaultEngine)
-
-    loadPopup()
-}
-
-main()
+loadPopup()

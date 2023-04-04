@@ -1,9 +1,25 @@
 {
 	"cSpell.words": [
+		"bestmove",
+		"copyprotection",
+		"cpuload",
+		"currline",
+		"currmove",
+		"currmovenumber",
+		"esmify",
+		"hashfull",
 		"jschessengine",
+		"lowerbound",
+		"multipv",
+		"readyok",
 		"rnbqkbnrpRNBQKBNRP",
+		"sbhits",
+		"seldepth",
 		"Stockfish",
-		"uglifyjs"
+		"tbhits",
+		"uciok",
+		"uglifyjs",
+		"upperbound"
 	],
 	"files.exclude": {
 		"**/.git": true,
