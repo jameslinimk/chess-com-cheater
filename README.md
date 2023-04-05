@@ -9,9 +9,7 @@ Because of the lack of cors headers on chess.com, a faster engine using SharedAr
 
 The extension gets the current game by looking at the moves on the right hand side. So, you will not be able to start the extension until you (or the opponent) has made a move.
 
-## Installation
-
-Go to the [releases](https://github.com/jameslinimk/chess-com-cheater/releases/latest) and follow the instructions for your browser.
+## Installation - Go to the [releases](https://github.com/jameslinimk/chess-com-cheater/releases/latest) and follow the instructions for your browser
 
 ## Popup Guide
 

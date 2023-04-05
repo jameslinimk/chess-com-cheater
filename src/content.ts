@@ -2,6 +2,7 @@ import { Chess } from "chess.js"
 import { engine } from "./engine.js"
 import { loadPopup } from "./popup.js"
 import { colorLog } from "./util.js"
+import { checkVersion } from "./version.js"
 
 export const getMoveCount = () => document.querySelectorAll("div[data-ply]:not(.time-white):not(.time-black)").length
 
@@ -30,6 +31,7 @@ export const getChess = () => {
 }
 
 colorLog("green", "Starting chess.com cheats...")
+checkVersion()
 engine
 
 // Inject toastify

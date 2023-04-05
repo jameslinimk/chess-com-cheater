@@ -13,20 +13,19 @@
     "dependencies": {
         "chess.js": "1.0.0-beta.4",
         "copy-to-clipboard": "^3.3.3",
-        "lichess": "^2.0.15",
         "sync-fetch": "^0.4.2",
         "toastify-js": "^1.12.0",
         "watch": "^1.0.2"
     },
     "devDependencies": {
+        "@types/chrome": "^0.0.228",
+        "@types/sync-fetch": "^0.4.0",
+        "@types/toastify-js": "^1.11.1",
         "bestzip": "^2.2.1",
         "shx": "^0.3.4",
         "esmify": "^2.1.1",
         "browserify": "^17.0.0",
         "typescript": "^5.0.3",
-        "@types/chrome": "^0.0.228",
-        "@types/sync-fetch": "^0.4.0",
-        "@types/toastify-js": "^1.11.1",
         "terser": "^5.16.8"
     },
     "type": "module"
