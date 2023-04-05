@@ -28,9 +28,6 @@ devDependencies:
   shx:
     specifier: ^0.3.4
     version: 0.3.4
-  sync-fetch:
-    specifier: ^0.4.2
-    version: 0.4.2
   terser:
     specifier: ^5.16.8
     version: 5.16.8
@@ -829,13 +826,6 @@ packages:
 
   /buffer@5.2.1:
     resolution: {integrity: sha512-c+Ko0loDaFfuPWiL02ls9Xd3GO3cPVmUobQ6t3rXNUk304u6hGq+8N/kFi+QEIKhzK3uwolVhLzszmfLmMLnqg==}
-    dependencies:
-      base64-js: 1.5.1
-      ieee754: 1.2.1
-    dev: true
-
-  /buffer@5.7.1:
-    resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
     dependencies:
       base64-js: 1.5.1
       ieee754: 1.2.1
@@ -1942,18 +1932,6 @@ packages:
     engines: {node: '>= 0.6'}
     dev: true
 
-  /node-fetch@2.6.9:
-    resolution: {integrity: sha512-DJm/CJkZkRjKKj4Zi4BsKVZh3ValV5IR5s7LVZnW+6YMh0W1BfNA8XSs6DLMGYlId5F3KnA70uu2qepcR08Qqg==}
-    engines: {node: 4.x || >=6.0.0}
-    peerDependencies:
-      encoding: ^0.1.0
-    peerDependenciesMeta:
-      encoding:
-        optional: true
-    dependencies:
-      whatwg-url: 5.0.0
-    dev: true
-
   /node-releases@2.0.10:
     resolution: {integrity: sha512-5GFldHPXVG/YZmFzJvKK2zDSzPKhEp0+ZR5SVaoSag9fsL5YgHbUHDfnG5494ISANDcK4KwPXAx2xqVEydmd7w==}
     dev: true
@@ -2510,16 +2488,6 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /sync-fetch@0.4.2:
-    resolution: {integrity: sha512-vilDD6yTGwyUjm7/W5WUUOCw1GH1aV591zC21XhbV6MJNZqfZcNMs9DVPHzy1UAmQ2GAg6S03F5TQ3paegKSdg==}
-    engines: {node: '>=14'}
-    dependencies:
-      buffer: 5.7.1
-      node-fetch: 2.6.9
-    transitivePeerDependencies:
-      - encoding
-    dev: true
-
   /syntax-error@1.4.0:
     resolution: {integrity: sha512-YPPlu67mdnHGTup2A8ff7BC2Pjq0e0Yp/IyTFN03zWO0RcK07uLcbi7C2KpGR2FvWbaB0+bfE27a+sBKebSo7w==}
     dependencies:
@@ -2584,10 +2552,6 @@ packages:
     dependencies:
       psl: 1.9.0
       punycode: 2.3.0
-    dev: true
-
-  /tr46@0.0.3:
-    resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
     dev: true
 
   /tty-browserify@0.0.1:
@@ -2723,17 +2687,6 @@ packages:
     dependencies:
       exec-sh: 0.2.2
       minimist: 1.2.8
-    dev: true
-
-  /webidl-conversions@3.0.1:
-    resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
-    dev: true
-
-  /whatwg-url@5.0.0:
-    resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==}
-    dependencies:
-      tr46: 0.0.3
-      webidl-conversions: 3.0.1
     dev: true
 
   /which-typed-array@1.1.9:

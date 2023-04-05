@@ -15,7 +15,6 @@
         "esmify": "^2.1.1",
         "lichess": "^2.0.15",
         "shx": "^0.3.4",
-        "sync-fetch": "^0.4.2",
         "terser": "^5.16.8",
         "toastify-js": "^1.12.0",
         "typescript": "^5.0.3",
