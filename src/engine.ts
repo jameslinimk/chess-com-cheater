@@ -1,13 +1,98 @@
-import { Config } from "./types.js"
-import { colorLog, retrieveWindowVariables } from "./util.js"
+import type { Chess } from "chess.js"
+import { loadArrows } from "./arrows.js"
+import { getChess, getMoves } from "./content.js"
+import type { Config } from "./types.js"
+import { colorLog, retrieveWindowVariable } from "./util.js"
 
-const config: Config = retrieveWindowVariables(["Config"])["Config"]
+const config: Config = retrieveWindowVariable("Config")
 if (!config) colorLog("red", "Config not found, reverting to default engine worker path...")
 
 const defaultEngine = "/bundles/app/js/vendor/jschessengine/stockfish.asm.1abfa10c.js"
-export const engine = new Worker(config?.pathToNonWasmEngine ?? defaultEngine)
+export let engine = new Worker(config?.pathToNonWasmEngine ?? defaultEngine)
 
-const uciInfo: Record<string, string[]> = {
+interface Line {
+    moves: string[]
+    evaluation: string
+}
+
+interface Info {
+    game: Chess
+    depth: number
+    evaluation: string
+    lines: [Line, Line, Line]
+}
+
+const defaultLines = '[{"moves":[],"evaluation":""},{"moves":[],"evaluation":""},{"moves":[],"evaluation":""}]'
+
+export const info = {
+    game: null,
+    depth: 0,
+    evaluation: "",
+    lines: JSON.parse(defaultLines),
+} as Info
+
+let lastMoves = ""
+
+export const startEval = (chess: Chess, multilines = 1, callback: () => unknown) => {
+    info.lines = JSON.parse(defaultLines)
+    info.game = chess
+    lastMoves = getMoves()
+
+    loadArrows()
+
+    engine.postMessage(`setoption name MultiPV value ${multilines}`)
+    engine.postMessage(`position fen ${chess.fen()}`)
+    engine.postMessage("go infinite")
+
+    engine.onmessage = (msg) => {
+        const data = parseUci(msg.data)
+        if (data.command !== "info") return
+
+        const ml = parseInt(data.args["multipv"])
+        const depth = parseInt(data.args["depth"])
+        const mvs = data.args["pv"]?.split(" ")
+        const cp = parseInt(data.args["cp"]) / 100
+        const mate = data.args["mate"]
+        const evaluation = !mate ? `${cp}` : parseInt(mate) > 0 ? `#${mate}` : `-#${-mate}`
+        if (!ml || !mvs) return
+
+        info.depth = depth
+        if (ml === 1) info.evaluation = evaluation
+        if (ml <= 3) {
+            info.lines[ml - 1].evaluation = evaluation
+            info.lines[ml - 1].moves = mvs
+        }
+        callback()
+    }
+
+    setInterval(() => {
+        const curMoves = getMoves()
+        if (curMoves !== lastMoves) {
+            lastMoves = curMoves
+            engine.terminate()
+            engine = new Worker(config?.pathToNonWasmEngine ?? defaultEngine)
+            startEval(getChess(), multilines, callback)
+        }
+    }, 100)
+}
+
+export const stopEval = (callback: () => unknown) => {
+    engine.terminate()
+    engine = new Worker(config?.pathToNonWasmEngine ?? defaultEngine)
+    callback()
+}
+
+type UciCommands =
+    | "id"
+    | "uciok"
+    | "readyok"
+    | "copyprotection"
+    | "registration"
+    | "option"
+    | "info"
+    | "bestmove"
+    | "Stockfish.js"
+const uciInfo: Record<UciCommands, string[]> = {
     id: ["name", "author"],
     uciok: [],
     readyok: [],
@@ -36,17 +121,19 @@ const uciInfo: Record<string, string[]> = {
         "string",
         "refutation",
         "currline",
+        "bmc",
     ],
     bestmove: ["main", "ponder"],
+    "Stockfish.js": [],
 }
 
-export const parseUci = (uci: string) => {
-    const command = uci.split(" ")[0]
+const parseUci = (uci: string) => {
+    const command = uci.split(" ")[0] as UciCommands
     const args = uci.split(" ").slice(1)
 
     const info = uciInfo[command]
-    if (!info) throw new Error(`Unknown UCI command: ${command}`)
-    if (info.length === 0) return { command, args: [] }
+    if (!info) throw new Error(`Unknown UCI command: ${uci}`)
+    if (info.length === 0) return { command, args: {} }
     const formattedArgs: Record<string, string> = {}
 
     if (info.includes("main")) {

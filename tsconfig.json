@@ -12,7 +12,8 @@
 		"module": "ESNext",
 		"moduleResolution": "node",
 		"skipLibCheck": true,
-		"outDir": "temp"
+		"outDir": "temp",
+		"allowSyntheticDefaultImports": true
 	},
 	"exclude": [
 		"node_modules",
