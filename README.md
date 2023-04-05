@@ -11,7 +11,7 @@ The extension gets the current game by looking at the moves on the right hand si
 
 ## Popup
 
-<img src="./imgs/Screenshot%202023-04-05%20at%2013-21-45%20Play%20Chess%20Online%20Against%20the%20Computer.png" width="20%">
+<img src="./imgs/Screenshot%202023-04-05%20at%2013-21-45%20Play%20Chess%20Online%20Against%20the%20Computer.png" width="20%" alt="Chess.com cheat menu">
 
 *Use the black bar at the top to move the popup window around
 
