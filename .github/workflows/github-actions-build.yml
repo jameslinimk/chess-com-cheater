@@ -31,32 +31,32 @@ jobs:
                   body: |
                       # Installation
 
-                      1. Download the zip file
+                      1. Download the zip file below (chess-cheats.zip)
                       2. Extract the zip file
-                      Follow the instructions for your browser:
+                      3. Follow the instructions for your browser:
 
                       ## Chrome
 
-                      3. Go to [chrome://extensions](chrome://extensions)
-                      4. Enable developer mode
-                      5. Click on "Load unpacked"
-                      6. Select the extracted folder
-                      7. Done! (You have to redo 3-6 every time you restart chrome)
+                      4. Go to `chrome://extensions`
+                      5. Enable developer mode
+                      6. Click on "Load unpacked"
+                      7. Select the extracted folder
+                      8. Done! (You have to redo 4-7 every time you restart chrome)
 
                       ## Firefox
 
-                      3. Go to [about:debugging#/runtime/this-firefox](about:debugging#/runtime/this-firefox)
-                      4. Click on "Load Temporary Add-on"
-                      5. Select any file in the extracted folder
-                      6. Done! (You have to redo 3-5 every time you restart firefox)
+                      4. Go to `about:debugging#/runtime/this-firefox`
+                      5. Click on "Load Temporary Add-on"
+                      6. Select any file in the extracted folder
+                      7. Done! (You have to redo 4-6 every time you restart firefox)
 
                       ## Edge
 
-                      3. Go to [edge://extensions](edge://extensions)
-                      4. Enable developer mode
-                      5. Click on "Load unpacked"
-                      6. Select the extracted folder
-                      7. Done! (You have to redo 3-6 every time you restart edge)
+                      4. Go to `edge://extensions`
+                      5. Enable developer mode
+                      6. Click on "Load unpacked"
+                      7. Select the extracted folder
+                      8. Done! (You have to redo 4-7 every time you restart edge)
                   draft: false
                   prerelease: false
             - name: Upload Release Asset
@@ -66,6 +66,6 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./dist/rel.zip
-                  asset_name: rel.zip
+                  asset_path: ./dist/chess-cheats.zip
+                  asset_name: chess-cheats.zip
                   asset_content_type: application/zip
