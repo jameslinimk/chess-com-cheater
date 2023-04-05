@@ -78,6 +78,20 @@ export const startEval = async (chess: Chess, multilines = 1, callback: () => un
     engine.postMessage(`position fen ${fen}`)
     engine.postMessage("go infinite")
 
+    const cloud = await cloudEval(fen, multilines)
+    if (cloud) {
+        info.cloud = true
+        info.depth = cloud.depth
+        info.evaluation = calcEval(cloud.pvs[0])
+        info.lines = cloud.pvs.map((pv) => ({
+            moves: pv.moves.split(" "),
+            evaluation: calcEval(pv),
+        })) as [Line, Line, Line]
+
+        callback()
+        return
+    }
+
     engine.onmessage = (msg) => {
         const data = parseUci(msg.data)
         if (data.command !== "info") return
@@ -103,20 +117,6 @@ export const startEval = async (chess: Chess, multilines = 1, callback: () => un
             info.lines[ml - 1].moves = mvs
         }
         callback()
-    }
-
-    const cloud = await cloudEval(fen, multilines)
-    if (cloud) {
-        info.cloud = true
-        info.depth = cloud.depth
-        info.evaluation = calcEval(cloud.pvs[0])
-        info.lines = cloud.pvs.map((pv) => ({
-            moves: pv.moves.split(" "),
-            evaluation: calcEval(pv),
-        })) as [Line, Line, Line]
-
-        callback()
-        return
     }
 }
 

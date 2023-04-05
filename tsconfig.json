@@ -13,7 +13,7 @@
 		"moduleResolution": "node",
 		"skipLibCheck": true,
 		"outDir": "temp",
-		"allowSyntheticDefaultImports": true
+		"allowSyntheticDefaultImports": true,
 	},
 	"exclude": [
 		"node_modules",
