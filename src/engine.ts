@@ -1,6 +1,6 @@
 import type { Chess } from "chess.js"
 import { loadArrows } from "./arrows.js"
-import { getChess, getMoves } from "./content.js"
+import { getChess, getMoveCount } from "./content.js"
 import { cloudEval } from "./lichess.js"
 import type { Config } from "./types.js"
 import { colorLog, retrieveWindowVariable } from "./util.js"
@@ -20,10 +20,10 @@ const path = () => {
     return asmEngine
 }
 
-export let engine = new Worker(path())
+export let engine: Worker = null
 
 export const updateEngine = () => {
-    engine.terminate()
+    engine?.terminate()
     engine = new Worker(path())
 }
 
@@ -50,23 +50,24 @@ export const info = {
     cloud: false,
 } as Info
 
-let lastMoves = ""
+let lastMoves = -1
 let checker = null
 
 const calcEval = (obj: { cp?: number; mate?: number }) => (!obj.mate ? `${obj.cp / 100}` : `M${obj.mate}`)
 
 export const startEval = async (chess: Chess, multilines = 1, callback: () => unknown) => {
+    updateEngine()
     loadArrows()
 
     info.lines = JSON.parse(defaultLines)
     info.game = chess
     info.cloud = false
 
-    lastMoves = getMoves()
+    lastMoves = getMoveCount()
     const fen = chess.fen()
 
     checker = setInterval(() => {
-        const curMoves = getMoves()
+        const curMoves = getMoveCount()
         if (curMoves !== lastMoves) {
             lastMoves = curMoves
             startEval(getChess(), multilines, callback)

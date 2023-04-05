@@ -70,6 +70,7 @@ const css = `
 	left: 50px;
 	box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
 	z-index: 2147483647;
+    width: 231px;
 }
 
 .cc-dragger {
@@ -146,8 +147,6 @@ export const loadPopup = () => {
         parent.style.display = "none"
         toast("Hack menu is hidden. Press shift+a to show it.", "#413931")
     }
-
-    parent.style.width = `${parent.getBoundingClientRect().width}px`
 
     /* ---------------------------- Hide with shift+a --------------------------- */
     document.addEventListener("keydown", (event) => {
