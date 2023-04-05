@@ -20,5 +20,8 @@
             "js": ["content.bundle.min.js"],
             "run_at": "document_end"
         }
-    ]
+    ],
+    "background": {
+        "scripts": ["background.bundle.min.js"]
+    }
 }

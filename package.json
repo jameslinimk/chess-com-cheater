@@ -1,9 +1,13 @@
 {
     "name": "chess-com-cheater",
     "scripts": {
-        "build": "shx rm -rf dist && shx mkdir dist && shx rm -rf temp && shx mkdir temp && shx cp -r static/* dist && tsc -B && browserify -p esmify temp/content.js -o temp/content.bundle.js && terser temp/content.bundle.js -m -c --comments false -o dist/content.bundle.min.js && shx rm -rf temp && shx echo Done!",
-        "devBuild": "shx rm -rf dist && shx mkdir dist && shx rm -rf temp && shx mkdir temp && shx cp -r static/* dist && tsc -B && browserify -p esmify temp/content.js -o dist/content.bundle.min.js && shx rm -rf temp && shx echo Done!",
-        "watch": "watch \"npm run devBuild\" --interval=0.5 ./src"
+        "build:content": "browserify -p esmify temp/content.js -o temp/content.bundle.js && terser temp/content.bundle.js -m -c --comments false -o dist/content.bundle.min.js",
+        "build:bg": "browserify -p esmify temp/background.js -o temp/background.bundle.js && terser temp/background.bundle.js -m -c --comments false -o dist/background.bundle.min.js",
+        "build:devContent": "browserify -p esmify temp/content.js -o dist/content.bundle.min.js",
+        "build:devBg": "browserify -p esmify temp/background.js -o dist/background.bundle.min.js",
+        "build": "shx rm -rf dist && shx mkdir dist && shx rm -rf temp && shx mkdir temp && shx cp -r static/* dist && tsc -B && npm run build:content && npm run build:bg && shx rm -rf temp && shx echo Done!",
+        "build:dev": "shx rm -rf dist && shx mkdir dist && shx rm -rf temp && shx mkdir temp && shx cp -r static/* dist && tsc -B && npm run build:devContent && npm run build:devBg && shx rm -rf temp && shx echo Done!",
+        "watch": "watch \"npm run build:dev\" --interval=0.5 ./src"
     },
     "devDependencies": {
         "@types/chrome": "^0.0.228",
@@ -15,9 +19,11 @@
         "esmify": "^2.1.1",
         "lichess": "^2.0.15",
         "shx": "^0.3.4",
+        "sync-fetch": "^0.4.2",
         "terser": "^5.16.8",
         "toastify-js": "^1.12.0",
         "typescript": "^5.0.3",
         "watch": "^1.0.2"
-    }
+    },
+    "type": "module"
 }

@@ -2,7 +2,7 @@ import type { Chess } from "chess.js"
 import copy from "copy-to-clipboard"
 import { clearArrows, createArrow, hideArrows, showArrows } from "./arrows.js"
 import { getChess } from "./content.js"
-import { info, startEval, stopEval } from "./engine.js"
+import { info, startEval, stopEval, updateEngine } from "./engine.js"
 import { toast, unselectAll } from "./util.js"
 
 const inactiveColor = "#7286D3"
@@ -12,8 +12,17 @@ const html = `
 <div class="cc-parent" id="cc-parent">
     <div class="cc-dragger" id="cc-dragger"></div>
     <div class="cc-content">
-        <h1 class="cc-title">Cheat menu</h1>
+        <h1 class="cc-title">Cheat menu <a class="cc-help" href="https://github.com/jameslinimk/chess-com-cheater" target="_blank">❓</a></h1>
         <p class="cc-subtitle">Hide with shift+a</p>
+        Current engine: <span id="cc-current-engine">ASM</span>
+		<br />
+		<button class="cc-button" id="cc-asm-button">
+			ASM
+		</button>
+		<button class="cc-button" id="cc-single-button">
+			Single thread
+		</button>
+        <br />
 		Current color: <span id="cc-current-color">White</span>
 		<br />
 		<button class="cc-button" id="cc-white-button">
@@ -23,7 +32,7 @@ const html = `
 			Black
 		</button>
 		<br />
-        Multi lines: <span id="cc-current-multiline">5</span>
+        Multi lines: <span id="cc-current-multiline">3</span>
         <button class="cc-button" style="padding-left: 4px; padding-right: 4px" id="cc-ml-plus-button">+</button>
         <button class="cc-button" style="padding-left: 7px; padding-right: 7px" id="cc-ml-minus-button">-</button>
         <br />
@@ -32,7 +41,7 @@ const html = `
         <br />
         <br />
         Best move: <span id="cc-current-bm">N/A</span> <br />
-        Eval (for turn): <span id="cc-current-eval">0</span> <br />
+        Eval (for white): <span id="cc-current-eval">0</span> <br />
         Depth: <span id="cc-current-depth">0</span>
 		<br />
 		<br />
@@ -83,6 +92,11 @@ const css = `
 	margin-right: 0px;
 	margin-left: 0px;
 	text-align: center;
+}
+
+.cc-help {
+    cursor: pointer;
+    margin-left: -2px;
 }
 
 .cc-subtitle {
@@ -211,6 +225,26 @@ export const loadPopup = () => {
         saveColor()
     })
 
+    /* --------------------------------- Engine --------------------------------- */
+    const currentEngine = document.getElementById("cc-current-engine") as HTMLSpanElement
+    const localEngine = localStorage.getItem("cc-popup-engine")
+    if (localEngine) currentEngine.innerText = localEngine
+
+    const asmButton = document.getElementById("cc-asm-button") as HTMLButtonElement
+    const singleButton = document.getElementById("cc-single-button") as HTMLButtonElement
+
+    const saveEngine = () => localStorage.setItem("cc-popup-engine", currentEngine.innerText)
+    asmButton.addEventListener("click", () => {
+        currentEngine.innerText = "ASM"
+        saveEngine()
+        updateEngine()
+    })
+    singleButton.addEventListener("click", () => {
+        currentEngine.innerText = "Single"
+        saveEngine()
+        updateEngine()
+    })
+
     /* ------------------------------- Multilines ------------------------------- */
     const currentMultiline = document.getElementById("cc-current-multiline") as HTMLSpanElement
     const localML = localStorage.getItem("cc-popup-multilines")
@@ -265,7 +299,7 @@ export const loadPopup = () => {
                     ? info.evaluation.slice(1)
                     : `-${info.evaluation}`
 
-                currentDepth.innerText = `${info.depth}`
+                currentDepth.innerText = info.cloud ? `${info.depth} (cloud)` : `${info.depth}`
 
                 clearArrows()
                 for (let i = 0; i < info.lines.length; i++) {

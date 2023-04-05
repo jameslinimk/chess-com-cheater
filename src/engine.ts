@@ -1,14 +1,31 @@
 import type { Chess } from "chess.js"
 import { loadArrows } from "./arrows.js"
 import { getChess, getMoves } from "./content.js"
+import { cloudEval } from "./lichess.js"
 import type { Config } from "./types.js"
 import { colorLog, retrieveWindowVariable } from "./util.js"
 
 const config: Config = retrieveWindowVariable("Config")
 if (!config) colorLog("red", "Config not found, reverting to default engine worker path...")
 
-const defaultEngine = "/bundles/app/js/vendor/jschessengine/stockfish.asm.1abfa10c.js"
-export let engine = new Worker(config?.pathToNonWasmEngine ?? defaultEngine)
+const singleEngine =
+    config.threadedEnginePaths.stockfish.singleThreaded.loader +
+    "#" +
+    config.threadedEnginePaths.stockfish.singleThreaded.engine
+const asmEngine = config.threadedEnginePaths.stockfish.asm
+
+const path = () => {
+    const selected = document.getElementById("cc-current-engine") as HTMLSpanElement
+    if (selected?.textContent === "Single") return singleEngine
+    return asmEngine
+}
+
+export let engine = new Worker(path())
+
+export const updateEngine = () => {
+    engine.terminate()
+    engine = new Worker(path())
+}
 
 interface Line {
     moves: string[]
@@ -20,6 +37,7 @@ interface Info {
     depth: number
     evaluation: string
     lines: [Line, Line, Line]
+    cloud: boolean
 }
 
 const defaultLines = '[{"moves":[],"evaluation":""},{"moves":[],"evaluation":""},{"moves":[],"evaluation":""}]'
@@ -29,16 +47,21 @@ export const info = {
     depth: 0,
     evaluation: "",
     lines: JSON.parse(defaultLines),
+    cloud: false,
 } as Info
 
 let lastMoves = ""
 let checker = null
+
+const calcEval = (obj: { cp?: number; mate?: number }) => (!obj.mate ? `${obj.cp / 100}` : `M${obj.mate}`)
 
 export const startEval = async (chess: Chess, multilines = 1, callback: () => unknown) => {
     loadArrows()
 
     info.lines = JSON.parse(defaultLines)
     info.game = chess
+    info.cloud = false
+
     lastMoves = getMoves()
     const fen = chess.fen()
 
@@ -46,11 +69,9 @@ export const startEval = async (chess: Chess, multilines = 1, callback: () => un
         const curMoves = getMoves()
         if (curMoves !== lastMoves) {
             lastMoves = curMoves
-            engine.terminate()
-            engine = new Worker(config?.pathToNonWasmEngine ?? defaultEngine)
             startEval(getChess(), multilines, callback)
         }
-    }, 100)
+    })
 
     engine.postMessage(`setoption name MultiPV value ${multilines}`)
     engine.postMessage(`position fen ${fen}`)
@@ -65,7 +86,13 @@ export const startEval = async (chess: Chess, multilines = 1, callback: () => un
         const mvs = data.args["pv"]?.split(" ")
         const cp = parseInt(data.args["cp"]) / 100
         const mate = data.args["mate"]
-        const evaluation = !mate ? `${cp}` : parseInt(mate) > 0 ? `#${mate}` : `-#${-mate}`
+        const evaluation = !mate
+            ? chess.turn() === "w"
+                ? `${cp}`
+                : `${-cp}`
+            : chess.turn() === "w"
+            ? `M${mate}`
+            : `M${-mate}`
         if (!ml || !mvs) return
 
         info.depth = depth
@@ -76,12 +103,25 @@ export const startEval = async (chess: Chess, multilines = 1, callback: () => un
         }
         callback()
     }
+
+    const cloud = await cloudEval(fen, multilines)
+    if (cloud) {
+        info.cloud = true
+        info.depth = cloud.depth
+        info.evaluation = calcEval(cloud.pvs[0])
+        info.lines = cloud.pvs.map((pv) => ({
+            moves: pv.moves.split(" "),
+            evaluation: calcEval(pv),
+        })) as [Line, Line, Line]
+
+        callback()
+        return
+    }
 }
 
 export const stopEval = (callback: () => unknown) => {
     clearInterval(checker)
-    engine.terminate()
-    engine = new Worker(config?.pathToNonWasmEngine ?? defaultEngine)
+    updateEngine()
     callback()
 }
 

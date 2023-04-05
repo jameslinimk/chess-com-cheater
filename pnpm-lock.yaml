@@ -1,5 +1,10 @@
 lockfileVersion: '6.0'
 
+dependencies:
+  stockfish:
+    specifier: ^15.0.0
+    version: 15.0.0
+
 devDependencies:
   '@types/chrome':
     specifier: ^0.0.228
@@ -28,6 +33,9 @@ devDependencies:
   shx:
     specifier: ^0.3.4
     version: 0.3.4
+  sync-fetch:
+    specifier: ^0.4.2
+    version: 0.4.2
   terser:
     specifier: ^5.16.8
     version: 5.16.8
@@ -831,6 +839,13 @@ packages:
       ieee754: 1.2.1
     dev: true
 
+  /buffer@5.7.1:
+    resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
+    dependencies:
+      base64-js: 1.5.1
+      ieee754: 1.2.1
+    dev: true
+
   /builtin-status-codes@3.0.0:
     resolution: {integrity: sha512-HpGFw18DgFWlncDfjTa2rcQ4W88O1mC8e8yZ2AvQY5KDaktSTwo+KRf6nHK6FRI5FyRyb/5T6+TSxfP7QyGsmQ==}
     dev: true
@@ -945,7 +960,7 @@ packages:
     dev: true
 
   /concat-map@0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     dev: true
 
   /concat-stream@1.6.2:
@@ -1932,6 +1947,18 @@ packages:
     engines: {node: '>= 0.6'}
     dev: true
 
+  /node-fetch@2.6.9:
+    resolution: {integrity: sha512-DJm/CJkZkRjKKj4Zi4BsKVZh3ValV5IR5s7LVZnW+6YMh0W1BfNA8XSs6DLMGYlId5F3KnA70uu2qepcR08Qqg==}
+    engines: {node: 4.x || >=6.0.0}
+    peerDependencies:
+      encoding: ^0.1.0
+    peerDependenciesMeta:
+      encoding:
+        optional: true
+    dependencies:
+      whatwg-url: 5.0.0
+    dev: true
+
   /node-releases@2.0.10:
     resolution: {integrity: sha512-5GFldHPXVG/YZmFzJvKK2zDSzPKhEp0+ZR5SVaoSag9fsL5YgHbUHDfnG5494ISANDcK4KwPXAx2xqVEydmd7w==}
     dev: true
@@ -2121,7 +2148,7 @@ packages:
     dev: true
 
   /querystring@0.2.0:
-    resolution: {integrity: sha1-sgmEkgO7Jd+CDadW50cAWHhSFiA=}
+    resolution: {integrity: sha512-X/xY82scca2tau62i9mDyU9K+I+djTMUsvwf7xnUX5GLvVzgJybOJf4Y6o9Zx3oJK/LSXg5tTZBjwzqVPaPO2g==}
     engines: {node: '>=0.4.x'}
     deprecated: The querystring API is considered Legacy. new code should use the URLSearchParams API instead.
     dev: true
@@ -2416,6 +2443,11 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /stockfish@15.0.0:
+    resolution: {integrity: sha512-ze3vTgMrnCmMdtC8qpONBdXkSHWwv4Dx+GFV1V5TIi0qP1HF+Vwa4lArgqvHDooU8Mwfs1cgRzkW3SM8x/7TJg==}
+    hasBin: true
+    dev: false
+
   /stream-browserify@3.0.0:
     resolution: {integrity: sha512-H73RAHsVBapbim0tU2JwwOiXUj+fikfiaoYAKHF3VJfA0pe2BCzkhAHBlLG6REzE+2WNZcxOXjK7lkso+9euLA==}
     dependencies:
@@ -2488,6 +2520,16 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
+  /sync-fetch@0.4.2:
+    resolution: {integrity: sha512-vilDD6yTGwyUjm7/W5WUUOCw1GH1aV591zC21XhbV6MJNZqfZcNMs9DVPHzy1UAmQ2GAg6S03F5TQ3paegKSdg==}
+    engines: {node: '>=14'}
+    dependencies:
+      buffer: 5.7.1
+      node-fetch: 2.6.9
+    transitivePeerDependencies:
+      - encoding
+    dev: true
+
   /syntax-error@1.4.0:
     resolution: {integrity: sha512-YPPlu67mdnHGTup2A8ff7BC2Pjq0e0Yp/IyTFN03zWO0RcK07uLcbi7C2KpGR2FvWbaB0+bfE27a+sBKebSo7w==}
     dependencies:
@@ -2552,6 +2594,10 @@ packages:
     dependencies:
       psl: 1.9.0
       punycode: 2.3.0
+    dev: true
+
+  /tr46@0.0.3:
+    resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
     dev: true
 
   /tty-browserify@0.0.1:
@@ -2687,6 +2733,17 @@ packages:
     dependencies:
       exec-sh: 0.2.2
       minimist: 1.2.8
+    dev: true
+
+  /webidl-conversions@3.0.1:
+    resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
+    dev: true
+
+  /whatwg-url@5.0.0:
+    resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==}
+    dependencies:
+      tr46: 0.0.3
+      webidl-conversions: 3.0.1
     dev: true
 
   /which-typed-array@1.1.9:
