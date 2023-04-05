@@ -1,48 +1,41 @@
 name: Build and Release
-
-on:
+"on":
     push:
         branches:
             - master
-
 jobs:
     build:
         runs-on: ubuntu-latest
-
         steps:
             - uses: actions/checkout@v2
-
             - name: Use Node.js
               uses: actions/setup-node@v2
               with:
-                  node-version: "16.x"
-
+                  node-version: 16.x
             - name: Install dependencies
               run: |
                   npm i pnpm -g
                   pnpm i
-
             - name: Build
               run: pnpm run build
-
             - name: Create Release
+              id: create_release
               uses: actions/create-release@v1
               env:
-                  GITHUB_TOKEN: ${{ secrets.TOKEN }}
+                  GITHUB_TOKEN: "${{ secrets.TOKEN }}"
               with:
-                  tag_name: ${{ github.ref }}
-                  release_name: Release ${{ github.ref }}
+                  tag_name: "${{ github.ref }}"
+                  release_name: "Release ${{ github.ref }}"
                   body: |
                       Automatic release of ${{ github.sha }}.
                   draft: false
                   prerelease: false
-
             - name: Upload Release Asset
               uses: actions/upload-release-asset@v1
               env:
-                  GITHUB_TOKEN: ${{ secrets.TOKEN }}
+                  GITHUB_TOKEN: "${{ secrets.TOKEN }}"
               with:
-                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  upload_url: "${{ steps.create_release.outputs.upload_url }}"
                   asset_path: ./dist
-                  asset_name: chess.com-cheater-${{ github.sha }}.zip
+                  asset_name: "chess.com-cheater-${{ github.sha }}.zip"
                   asset_content_type: application/zip
