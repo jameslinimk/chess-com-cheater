@@ -9,13 +9,15 @@ Because of the lack of cors headers on chess.com, a faster engine using SharedAr
 
 The extension gets the current game by looking at the moves on the right hand side. So, you will not be able to start the extension until you (or the opponent) has made a move.
 
-## Popup
+## Installation
+
+Go to the [releases](https://github.com/jameslinimk/chess-com-cheater/releases/latest) and follow the instructions for your browser.
+
+## Popup Guide
 
 <img src="./imgs/Screenshot%202023-04-05%20at%2013-21-45%20Play%20Chess%20Online%20Against%20the%20Computer.png" width="20%" alt="Chess.com cheat menu">
 
 *Use the black bar at the top to move the popup window around
-
-### Popup guide
 
 - The first few lines are engine options
   - Current engine - Either ASM or Single Threaded WASM. ASM is preferred, but is not supported on all browsers

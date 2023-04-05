@@ -29,13 +29,13 @@ jobs:
                   tag_name: ext-release-${{ github.run_number }}
                   release_name: Extension Release
                   body: |
-                      \# Installation
+                      # Installation
 
                       1. Download the zip file
                       2. Extract the zip file
                       Follow the instructions for your browser:
 
-                      \# Chrome
+                      # Chrome
 
                       3. Go to [chrome://extensions](chrome://extensions)
                       4. Enable developer mode
@@ -43,14 +43,14 @@ jobs:
                       6. Select the extracted folder
                       7. Done! (You have to redo 3-6 every time you restart chrome)
 
-                      \# Firefox
+                      # Firefox
 
                       3. Go to [about:debugging#/runtime/this-firefox](about:debugging#/runtime/this-firefox)
                       4. Click on "Load Temporary Add-on"
                       5. Select any file in the extracted folder
                       6. Done! (You have to redo 3-5 every time you restart firefox)
 
-                      \# Edge
+                      # Edge
 
                       3. Go to [edge://extensions](edge://extensions)
                       4. Enable developer mode
