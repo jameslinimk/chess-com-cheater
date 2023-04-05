@@ -15,7 +15,7 @@ jobs:
             - name: Use Node.js
               uses: actions/setup-node@v2
               with:
-                  node-version: "14.x"
+                  node-version: "16.x"
 
             - name: Install dependencies
               run: |
@@ -28,7 +28,7 @@ jobs:
             - name: Create Release
               uses: actions/create-release@v1
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.TOKEN }}
               with:
                   tag_name: ${{ github.ref }}
                   release_name: Release ${{ github.ref }}
@@ -40,7 +40,7 @@ jobs:
             - name: Upload Release Asset
               uses: actions/upload-release-asset@v1
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
                   asset_path: ./dist
