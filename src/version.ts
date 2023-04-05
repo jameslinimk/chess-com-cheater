@@ -1,13 +1,25 @@
-import fetch from "sync-fetch"
 import Toast from "toastify-js"
+import { extractAllText } from "./util.js"
 
 const version = "1.0.0"
 
-export const checkVersion = () => {
-    const gitUrl = "https://raw.githack.com/jameslinimk/chess-com-cheater/master/src/version.ts"
-    const gitVersion = fetch(gitUrl)
-        .text()
-        .match(/(?<=")(.*?)(?=")/)[2]
+const getVersion = (): Promise<string> =>
+    new Promise((resolve) => {
+        chrome.runtime.sendMessage(
+            {
+                id: "fetchText",
+                url: "https://raw.githack.com/jameslinimk/chess-com-cheater/master/src/version.ts",
+            },
+            (response) => {
+                if (response?.error) resolve(null)
+                resolve(response.response)
+            }
+        )
+    })
+
+export const checkVersion = async () => {
+    const res = await getVersion()
+    const gitVersion = extractAllText(res)[2]
 
     if (version !== gitVersion) {
         Toast({

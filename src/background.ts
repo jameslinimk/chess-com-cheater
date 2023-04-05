@@ -11,4 +11,17 @@ chrome.runtime.onMessage.addListener((request, _, callback) => {
             .catch((error) => callback({ error, response: null }))
         return true
     }
+
+    if (request.id == "fetchText") {
+        const url = request.url
+        fetch(url, {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+        })
+            .then((response) => response.text())
+            .then((response) => callback({ error: null, response }))
+            .catch((error) => callback({ error, response: null }))
+        return true
+    }
 })
