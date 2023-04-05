@@ -11,7 +11,6 @@ export const getMoves = () => {
         const mv = moveDiv.textContent
         moves.push(mv.endsWith("=") ? mv + piece : piece + mv)
     }
-    console.log(moves.join(" "))
     return moves.join(" ")
 }
 

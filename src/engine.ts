@@ -32,16 +32,28 @@ export const info = {
 } as Info
 
 let lastMoves = ""
+let checker = null
 
-export const startEval = (chess: Chess, multilines = 1, callback: () => unknown) => {
+export const startEval = async (chess: Chess, multilines = 1, callback: () => unknown) => {
+    loadArrows()
+
     info.lines = JSON.parse(defaultLines)
     info.game = chess
     lastMoves = getMoves()
+    const fen = chess.fen()
 
-    loadArrows()
+    checker = setInterval(() => {
+        const curMoves = getMoves()
+        if (curMoves !== lastMoves) {
+            lastMoves = curMoves
+            engine.terminate()
+            engine = new Worker(config?.pathToNonWasmEngine ?? defaultEngine)
+            startEval(getChess(), multilines, callback)
+        }
+    }, 100)
 
     engine.postMessage(`setoption name MultiPV value ${multilines}`)
-    engine.postMessage(`position fen ${chess.fen()}`)
+    engine.postMessage(`position fen ${fen}`)
     engine.postMessage("go infinite")
 
     engine.onmessage = (msg) => {
@@ -64,19 +76,10 @@ export const startEval = (chess: Chess, multilines = 1, callback: () => unknown)
         }
         callback()
     }
-
-    setInterval(() => {
-        const curMoves = getMoves()
-        if (curMoves !== lastMoves) {
-            lastMoves = curMoves
-            engine.terminate()
-            engine = new Worker(config?.pathToNonWasmEngine ?? defaultEngine)
-            startEval(getChess(), multilines, callback)
-        }
-    }, 100)
 }
 
 export const stopEval = (callback: () => unknown) => {
+    clearInterval(checker)
     engine.terminate()
     engine = new Worker(config?.pathToNonWasmEngine ?? defaultEngine)
     callback()

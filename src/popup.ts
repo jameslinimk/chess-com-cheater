@@ -253,11 +253,24 @@ export const loadPopup = () => {
             startButton.style.backgroundColor = activeColor
             startEval(chess, parseInt(currentMultiline.innerText), () => {
                 currentBM.innerText = info?.lines[0]?.moves?.[0] ?? "N/A"
-                currentEval.innerText = `${info.evaluation}`
+
+                // Just switching the evaluation sign if the color is black
+                const color = currentColor.innerText === "White"
+                const ev = parseFloat(info.evaluation)
+                currentEval.innerText = color
+                    ? `${info.evaluation}`
+                    : !Number.isNaN(ev)
+                    ? `${-ev}`
+                    : info.evaluation.startsWith("-")
+                    ? info.evaluation.slice(1)
+                    : `-${info.evaluation}`
+
                 currentDepth.innerText = `${info.depth}`
 
                 clearArrows()
                 for (let i = 0; i < info.lines.length; i++) {
+                    if (i >= parseInt(currentMultiline.innerText)) break
+
                     const move = info.lines[i]?.moves?.[0]
                     if (!move) continue
 

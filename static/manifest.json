@@ -2,10 +2,10 @@
     "manifest_version": 2,
     "name": "Chess.com cheats",
     "version": "1.0",
-    "description": "Runs a WASM Stockfish in your chess.com games. Displays the best moves (up to 5) and evaluation for the current board.",
+    "description": "Runs a WASM Stockfish in your chess.com games. Displays the best moves (up to 3) and evaluation for the current board.",
     "browser_specific_settings": {
         "gecko": {
-            "id": "chesscheater@gmail.com"
+            "id": "jameskimimk@gmail.com"
         }
     },
     "icons": {
