@@ -1,7 +1,7 @@
 import Toast from "toastify-js"
 import { extractAllText } from "./util.js"
 
-const version = "1.0.0"
+const version = "1.0.2"
 
 const getVersion = (): Promise<string> =>
     new Promise((resolve) => {
