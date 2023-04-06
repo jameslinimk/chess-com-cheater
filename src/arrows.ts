@@ -66,7 +66,6 @@ export const loadArrows = () => {
 
     arrows = document.createElementNS("http://www.w3.org/2000/svg", "svg")
     arrows.setAttribute("viewBox", "0 0 100 100")
-    arrows.style.zIndex = "2147483646"
 
     const defs = arrows.appendChild(document.createElementNS("http://www.w3.org/2000/svg", "defs"))
     defs.innerHTML = marker
