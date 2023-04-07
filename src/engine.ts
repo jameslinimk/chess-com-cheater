@@ -16,8 +16,8 @@ const asmEngine = config.threadedEnginePaths.stockfish.asm
 
 const path = () => {
     const selected = document.getElementById("cc-current-engine") as HTMLSpanElement
-    if (selected?.textContent === "Single") return singleEngine
-    return asmEngine
+    if (selected?.textContent === "ASM") return asmEngine
+    return singleEngine
 }
 
 export let engine: Worker = null

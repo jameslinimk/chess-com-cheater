@@ -15,13 +15,13 @@ const html = `
         <h1 class="cc-title">Cheat menu <a class="cc-help" href="https://github.com/jameslinimk/chess-com-cheater" target="_blank">❓</a></h1>
         <p class="cc-subtitle">Hide with shift+a</p>
 
-        Current engine: <span id="cc-current-engine">ASM</span>
+        Current engine: <span id="cc-current-engine">Single</span>
 		<br />
+        <button class="cc-button" id="cc-single-button">
+            Single thread
+        </button>
 		<button class="cc-button" id="cc-asm-button">
 			ASM
-		</button>
-		<button class="cc-button" id="cc-single-button">
-			Single thread
 		</button>
 
         <br />

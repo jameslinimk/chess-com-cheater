@@ -5,7 +5,7 @@
 
 Runs a Stockfish engine in your chess.com games. Displays the best moves (up to 3) and evaluation for the current board. Uses the bundled ASM/WASM engine on chess.com and the lichess cloud-eval api to get the best move.
 
-Because of the lack of cors headers on chess.com, a faster engine using SharedArrayBuffer is not possible. You can expect *~15 depth per second* in standard positions, although, in common positions and opening lines, cloud-eval will provide evaluations of 40+ depth.
+Because of the lack of cors headers on chess.com, a faster engine using SharedArrayBuffer is not possible. You can expect *~18 depth per second* in standard positions, although, in common positions and opening lines, cloud-eval will provide evaluations of 40+ depth.
 
 The extension gets the current game by looking at the moves on the right hand side. So, you will not be able to start the extension until you (or the opponent) has made a move.
 
@@ -18,7 +18,7 @@ The extension gets the current game by looking at the moves on the right hand si
 *Use the black bar at the top to move the popup window around
 
 - The first few lines are engine options
-  - Current engine - Either ASM or Single Threaded WASM. ASM is preferred, but is not supported on all browsers
+  - Current engine - Either ASM or Single Threaded WASM. Single is preferred, but is not supported on all browsers
   - Current color - The color you are playing as. The arrows will be flipped if incorrectly configured
   - Multi lines - How many moves to display (the more transparent, the worse)
 - The `Start hack`/`Stop hack` button will start/stop the engine
