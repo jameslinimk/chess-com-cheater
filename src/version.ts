@@ -1,7 +1,7 @@
 import Toast from "toastify-js"
 import { extractAllText } from "./util.js"
 
-const version = "1.0.2"
+const version = "1.0.4"
 
 const getVersion = (): Promise<string> =>
     new Promise((resolve) => {
@@ -19,6 +19,7 @@ const getVersion = (): Promise<string> =>
 
 export const checkVersion = async () => {
     const res = await getVersion()
+    if (!res) return
     const gitVersion = extractAllText(res)[2]
 
     if (version !== gitVersion) {

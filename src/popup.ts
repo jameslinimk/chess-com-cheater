@@ -329,6 +329,7 @@ export const loadPopup = () => {
         })
     })
 
+    /* ------------------------------ Copy buttons ------------------------------ */
     const gameExists = () => {
         if (!info?.game) {
             try {
@@ -341,18 +342,21 @@ export const loadPopup = () => {
         return true
     }
 
-    /* ------------------------------ Copy buttons ------------------------------ */
+    const copyText = (text: string, name: string) => {
+        if (copy(text)) toast(`${name} copied to clipboard.`, "#413931")
+    }
+
     const fenButton = document.getElementById("cc-fen-button") as HTMLButtonElement
     const pgnButton = document.getElementById("cc-pgn-button") as HTMLButtonElement
 
     fenButton.addEventListener("click", () => {
         if (!gameExists()) return
-        copy(info.game.fen())
+        copyText(info.game.fen(), "FEN")
         toast("FEN copied to clipboard.", "#413931")
     })
     pgnButton.addEventListener("click", () => {
         if (!gameExists()) return
-        copy(info.game.pgn())
+        copyText(info.game.pgn(), "PGN")
         toast("PGN copied to clipboard.", "#413931")
     })
 

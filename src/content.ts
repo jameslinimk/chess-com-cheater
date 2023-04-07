@@ -34,14 +34,10 @@ colorLog("green", "Starting chess.com cheats...")
 checkVersion()
 engine
 
-// Inject toastify
+// Toastify css
 const css = document.head.appendChild(document.createElement("link"))
 css.rel = "stylesheet"
 css.type = "text/css"
 css.href = "https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
-
-const js = document.head.appendChild(document.createElement("script"))
-js.type = "text/javascript"
-js.src = "https://cdn.jsdelivr.net/npm/toastify-js"
 
 loadPopup()
