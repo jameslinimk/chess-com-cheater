@@ -3,7 +3,7 @@ import copy from "copy-to-clipboard"
 import { clearArrows, createArrow, hideArrows, showArrows } from "./arrows.js"
 import { getChess } from "./content.js"
 import { info, startEval, stopEval, updateEngine } from "./engine.js"
-import { toast, unselectAll } from "./util.js"
+import { toast } from "./util.js"
 
 const inactiveColor = "#7286D3"
 const activeColor = "#D2001A"
@@ -192,7 +192,7 @@ export const loadPopup = () => {
     }
 
     dragger.addEventListener("mousedown", (event) => {
-        unselectAll()
+        window.getSelection().removeAllRanges()
         document.body.style.userSelect = "none"
         dragger.style.cursor = "grabbing"
 

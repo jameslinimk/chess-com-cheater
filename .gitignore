@@ -3,3 +3,5 @@ node_modules
 dist
 temp
 chess-cheats.zip
+src/util_chrome.temp.ts
+src/util_firefox.temp.ts

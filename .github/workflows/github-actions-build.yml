@@ -20,6 +20,8 @@ jobs:
               run: |
                   pnpm run build
                   pnpm run build:zip
+                  pnpm run build:chrome
+                  pnpm run build:zipChrome
             - name: Create Release
               id: create_release
               uses: actions/create-release@v1
@@ -36,7 +38,7 @@ jobs:
 
                       # Installation for other browsers
 
-                      1. Download the zip file below (chess-cheats.zip)
+                      1. Download the zip file below (`chess-cheats.zip`)
                       2. Extract the zip file
                       3. Follow the instructions for your browser:
 
@@ -55,6 +57,10 @@ jobs:
                       6. Click on "Load unpacked"
                       7. Select the extracted folder
                       8. Done! (You have to redo 4-7 every time you restart edge)
+
+                      ### Note
+
+                      `chess-cheats-v3.zip` is a manifest v3 version of the extension. It is just used for the chrome web store.
                   draft: false
                   prerelease: false
             - name: Upload Release Asset
@@ -66,4 +72,14 @@ jobs:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
                   asset_path: ./chess-cheats.zip
                   asset_name: chess-cheats.zip
+                  asset_content_type: application/zip
+            - name: Upload Release Asset v3
+              id: upload-release-asset-v3
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./chess-cheats-v3.zip
+                  asset_name: chess-cheats-v3.zip
                   asset_content_type: application/zip

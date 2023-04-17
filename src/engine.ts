@@ -3,7 +3,8 @@ import { loadArrows } from "./arrows.js"
 import { getChess, getMoveCount } from "./content.js"
 import { cloudEval } from "./lichess.js"
 import type { Config } from "./types.js"
-import { colorLog, retrieveWindowVariable } from "./util.js"
+import { colorLog } from "./util.js"
+import { retrieveWindowVariable } from "./util_firefox.js"
 
 const config: Config = retrieveWindowVariable("Config")
 if (!config) colorLog("red", "Config not found, reverting to default engine worker path...")
