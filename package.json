@@ -7,7 +7,7 @@
         "build:devBg": "browserify -p esmify temp/background.js -o dist/background.bundle.min.js",
         "build": "shx rm -rf dist && shx mkdir dist && shx rm -rf temp && shx mkdir temp && shx cp -r static/* dist && tsc -B && npm run build:content && npm run build:bg && shx rm -rf temp && shx echo Done!",
         "build:dev": "shx rm -rf dist && shx mkdir dist && shx rm -rf temp && shx mkdir temp && shx cp -r static/* dist && tsc -B && npm run build:devContent && npm run build:devBg && shx rm -rf temp && shx echo Done!",
-        "build:zip": "bestzip ./dist/chess-cheats.zip ./dist/*",
+        "build:zip": "bestzip ./chess-cheats.zip ./dist/*",
         "watch": "watch \"npm run build:dev\" --interval=0.5 ./src"
     },
     "dependencies": {
@@ -18,15 +18,15 @@
         "watch": "^1.0.2"
     },
     "devDependencies": {
-        "@types/chrome": "^0.0.228",
+        "@types/chrome": "^0.0.231",
         "@types/sync-fetch": "^0.4.0",
         "@types/toastify-js": "^1.11.1",
         "bestzip": "^2.2.1",
-        "shx": "^0.3.4",
-        "esmify": "^2.1.1",
         "browserify": "^17.0.0",
-        "typescript": "^5.0.3",
-        "terser": "^5.16.8"
+        "esmify": "^2.1.1",
+        "shx": "^0.3.4",
+        "terser": "^5.16.9",
+        "typescript": "^5.0.4"
     },
     "type": "module"
 }

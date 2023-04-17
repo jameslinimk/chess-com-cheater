@@ -14,6 +14,7 @@
 		"skipLibCheck": true,
 		"outDir": "temp",
 		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true
 	},
 	"exclude": [
 		"node_modules",

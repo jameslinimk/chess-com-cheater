@@ -69,13 +69,3 @@ export const moveArrowHeads = (
     const r = radians(tail, head)
     return [project(tail, r, reverseDistance), project(head, r, -distance)]
 }
-
-export const extractAllText = (str: string) => {
-    const re = /"(.*?)"/g
-    const result = []
-    let current: RegExpExecArray
-    while ((current = re.exec(str))) {
-        result.push(current.pop())
-    }
-    return result.length > 0 ? result : [str]
-}

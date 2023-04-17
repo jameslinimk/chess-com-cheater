@@ -1,14 +1,11 @@
 import Toast from "toastify-js"
-import { extractAllText } from "./util.js"
-
-const version = "1.0.4"
 
 const getVersion = (): Promise<string> =>
     new Promise((resolve) => {
         chrome.runtime.sendMessage(
             {
                 id: "fetchText",
-                url: "https://raw.githack.com/jameslinimk/chess-com-cheater/master/src/version.ts",
+                url: "https://raw.githack.com/jameslinimk/chess-com-cheater/master/static/manifest.json",
             },
             (response) => {
                 if (response?.error) resolve(null)
@@ -20,9 +17,18 @@ const getVersion = (): Promise<string> =>
 export const checkVersion = async () => {
     const res = await getVersion()
     if (!res) return
-    const gitVersion = extractAllText(res)[2]
 
-    if (version !== gitVersion) {
+    let manifest: { version: string }
+    try {
+        manifest = JSON.parse(res)
+    } catch {
+        return
+    }
+
+    const url = chrome.runtime.getURL("manifest.json")
+    const local: { version: string } = await (await fetch(url)).json()
+
+    if (local.version !== manifest.version) {
         Toast({
             text: "New version available, click here to update!",
             duration: 10000,
