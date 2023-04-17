@@ -30,7 +30,7 @@ export const checkVersion = async () => {
 
     if (local.version !== manifest.version) {
         Toast({
-            text: "New version available, click here to update!",
+            text: "New version available, click to update!",
             duration: 10000,
             gravity: "top",
             position: "center",
@@ -38,6 +38,7 @@ export const checkVersion = async () => {
                 background: "#F3654C",
                 boxShadow: "0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)",
             },
+            close: true,
             onClick: () => {
                 window.open("https://github.com/jameslinimk/chess-com-cheater/releases/latest", "_blank")
             },

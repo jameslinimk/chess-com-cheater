@@ -1,4 +1,26 @@
-export const retrieveWindowVariable = (variable: string): any =>
-    JSON.parse(
-        '{"cometd.url":"/cometd","domain.main":"//www.chess.com","domain.static":"//www.chess.com","domain.files":"//files.chesscomfiles.com","domain.live":"//live.chess.com","domain.live2":"//live2.chess.com","domain.live3":"//live3.chess.com","domain.voice":"rtmp://voice.chess.com","domain.cssjs":"//www.chess.com","domain.images":"//images.chesscomfiles.com","domain.avatars":"//avatars.chesscomfiles.com","domain.baseUrl":"","isFacebookCanvas":false,"facebookId":"2427617054","pathToEngineWorker":"/bundles/app/js/vendor/jschessengine/stockfish.6983901b.js","pathToEngineWorkerAlt":"/bundles/app/js/engine/stockfish.1de0d633.js","pathToWasmEngine":"/bundles/app/js/vendor/jschessengine/stockfish.6103b42f.bin","pathToNonWasmEngine":"/bundles/app/js/vendor/jschessengine/stockfish.asm.1abfa10c.js","pathToKomodoWorker":"/bundles/app/js/vendor/jschessengine/komodo.9ea31da2.js","pathToWasmKomodo":"/bundles/app/js/vendor/jschessengine/komodo.765d36d5.bin","pathToNonWasmKomodo":"/bundles/app/js/vendor/jschessengine/komodo.asm.b6f18c99.js","pathToExplanationEngineWorker":"/bundles/app/js/vendor/explanation-engine-beta/explanation-engine.e19950a5.js","pathToWasmExplanationEngine":"/bundles/app/js/vendor/explanation-engine-beta/explanation-engine.98bdae82.wasm","pathToEcoJson":"/bundles/app/js/engine/eco.e2992d83.json","pathToBook":"/bundles/app/js/vendor/jschessengine/books/book.c30917a9.json","pathToBookSmall":"/bundles/app/js/engine/book-small.12a4e48e.json","pathToWebGL":"/bundles/app/js/vendor/webgl_three.61269fce.js","pathToGamePreviewLoader":"/bundles/web/images/game-preview-loading.8677fb94.png","pathToPersonalityBooks":{"aggressive":"/bundles/app/js/vendor/jschessengine/books/personalities/aggressive.50a9b452.bin","balanced":"/bundles/app/js/vendor/jschessengine/books/personalities/balanced.71d69282.bin","beginner":"/bundles/app/js/vendor/jschessengine/books/personalities/beginner.f122c7c5.bin","classical":"/bundles/app/js/vendor/jschessengine/books/personalities/classical.2e31ad51.bin","f-pawner":"/bundles/app/js/vendor/jschessengine/books/personalities/f-pawner.bb8a15f1.bin","fischer":"/bundles/app/js/vendor/jschessengine/books/personalities/fischer.c93e412d.bin","gambit":"/bundles/app/js/vendor/jschessengine/books/personalities/gambit.3ef59ed2.bin","indian":"/bundles/app/js/vendor/jschessengine/books/personalities/indian.8e8f8dd6.bin","nakamura":"/bundles/app/js/vendor/jschessengine/books/personalities/nakamura.1b408716.bin","offbeat":"/bundles/app/js/vendor/jschessengine/books/personalities/offbeat.c125e5bf.bin","positional":"/bundles/app/js/vendor/jschessengine/books/personalities/positional.988b37b5.bin","quick_queen":"/bundles/app/js/vendor/jschessengine/books/personalities/quick_queen.523ee0a4.bin","rensch":"/bundles/app/js/vendor/jschessengine/books/personalities/rensch.f0d14299.bin","winger":"/bundles/app/js/vendor/jschessengine/books/personalities/winger.77d88765.bin"},"threadedEnginePaths":{"stockfish":{"fakeWorker":{"loader":"https://www.chess.com/bundles/app/js/engine/stockfish-nnue-15.1-no-Worker.47c3d633.js","engine":"https://www.chess.com/bundles/app/js/engine/stockfish-nnue-15.1-no-Worker.a459ad84.wasm"},"multiThreaded":{"loader":"https://www.chess.com/bundles/app/js/engine/stockfish-nnue-15.1.274aa595.js","engine":"/bundles/app/js/engine/stockfish-nnue-15.1.5f5319f2.wasm","nnue":"/bundles/app/js/engine/nn-ad9b42354671.f89fd37b.nnue"},"singleThreaded":{"loader":"/bundles/app/js/engine/stockfish-single.830cf9cc.js","engine":"/bundles/app/js/engine/stockfish-single.8ffa2b70.wasm"},"asm":"/bundles/app/js/engine/stockfish.asm.16fa8540.js","fakeWorkerBrowserVersions":[{"browser":"chrome","version":109}]}},"oldThemes":false,"isPlay":false,"isStaff":false,"noAvatar":"/bundles/web/images/user-image.007dad08.svg","wdlJsonModel":"/bundles/web/wdl/model.json","wdlWeights":"/bundles/web/wdl/group1-shard1of1.bin","ad.noAds":true,"ad.disabledAds":[],"adCustomPath":"","pathToTinyMCE":"/bundles/app/js/tinymce-lazy.client.2e7ab4fb.js","pathToFCMWorker":"/bundles/app/js/fcm-worker.client.50f43761.js","pathToDiagramViewerCSS":"/bundles/app/css/diagram-viewer.client.30cb2e10.css","pathToDiagramViewerJS":"/bundles/app/js/diagram-viewer.client.d9933999.js"}'
-    )
+export const retrieveWindowVariable = (variable: string): any => ({
+    threadedEnginePaths: {
+        stockfish: {
+            fakeWorker: {
+                loader: "https://www.chess.com/bundles/app/js/engine/stockfish-nnue-15.1-no-Worker.47c3d633.js",
+                engine: "https://www.chess.com/bundles/app/js/engine/stockfish-nnue-15.1-no-Worker.a459ad84.wasm",
+            },
+            multiThreaded: {
+                loader: "https://www.chess.com/bundles/app/js/engine/stockfish-nnue-15.1.274aa595.js",
+                engine: "/bundles/app/js/engine/stockfish-nnue-15.1.5f5319f2.wasm",
+                nnue: "/bundles/app/js/engine/nn-ad9b42354671.f89fd37b.nnue",
+            },
+            singleThreaded: {
+                loader: "/bundles/app/js/engine/stockfish-single.830cf9cc.js",
+                engine: "/bundles/app/js/engine/stockfish-single.8ffa2b70.wasm",
+            },
+            asm: "/bundles/app/js/engine/stockfish.asm.16fa8540.js",
+            fakeWorkerBrowserVersions: [
+                {
+                    browser: "chrome",
+                    version: 109,
+                },
+            ],
+        },
+    },
+})
