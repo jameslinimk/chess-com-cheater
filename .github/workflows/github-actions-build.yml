@@ -31,36 +31,30 @@ jobs:
                   tag_name: ext-release-${{ github.run_number }}
                   release_name: Extension Release
                   body: |
-                      # Firefox release
+                      # Firefox store
 
-                      1. Go to the [Chess.com cheats](https://addons.mozilla.org/en-US/firefox/addon/chess-com-cheats/) page
-                      2. Click on "Add to Firefox"
+                      [Chess.com cheats](https://addons.mozilla.org/en-US/firefox/addon/chess-com-cheats/) is available on the firefox store, though it takes time to get approved, so using the extension from here is recommended.
 
-                      # Installation for other browsers
+                      # Manual installation
+
+                      ## Firefox
 
                       1. Download the zip file below (`chess-cheats.zip`)
-                      2. Extract the zip file
-                      3. Follow the instructions for your browser:
+                      2. Go to `about:debugging#/runtime/this-firefox` in firefox
+                      3. Click on "Load Temporary Add-on"
+                      4. Select the downloaded zip file
 
                       ## Chrome
 
-                      4. Go to `chrome://extensions`
-                      5. Enable developer mode
-                      6. Click on "Load unpacked"
-                      7. Select the extracted folder
-                      8. Done! (You have to redo 4-7 every time you restart chrome)
-
-                      ## Edge
-
-                      4. Go to `edge://extensions`
-                      5. Enable developer mode
-                      6. Click on "Load unpacked"
-                      7. Select the extracted folder
-                      8. Done! (You have to redo 4-7 every time you restart edge)
+                      1. Download the zip file below (`chess-cheats.zip`)
+                      2. Go to `chrome://extensions` in chrome
+                      3. Enable developer mode
+                      4. Click on "Load unpacked"
+                      5. Select the downloaded zip file
 
                       ### Note
 
-                      `chess-cheats-v3.zip` is a manifest v3 version of the extension. It is just used for the chrome web store.
+                      `chess-cheats-v3.zip` is a manifest v3 version of the extension. It is just used for the chrome web store and v2 is preferred.
                   draft: false
                   prerelease: false
             - name: Upload Release Asset

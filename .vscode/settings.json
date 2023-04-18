@@ -22,10 +22,12 @@
 		"setoption",
 		"Stockfish",
 		"tbhits",
+		"TLDR",
 		"Toastify",
 		"uciok",
 		"uglifyjs",
-		"upperbound"
+		"upperbound",
+		"Verdana"
 	],
 	"files.exclude": {
 		"**/.git": true,

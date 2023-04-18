@@ -30,8 +30,8 @@ export const createArrow = (_start: string, _end: string, opacity: number) => {
     const [start, end] = moveArrowHeads(notationToCoords(_start), notationToCoords(_end), 5, 2.5)
     const arrow = arrows.appendChild(document.createElementNS("http://www.w3.org/2000/svg", "line"))
 
-    arrow.setAttribute("marker-end", "url(#arrow)")
     arrow.setAttribute("opacity", `${opacity}`)
+    arrow.setAttribute("marker-end", "url(#arrow)")
     arrow.setAttribute("stroke-width", "2")
     arrow.setAttribute("stroke", "black")
     arrow.setAttribute("x1", `${start[0]}`)

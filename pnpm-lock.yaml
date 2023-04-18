@@ -40,8 +40,8 @@ devDependencies:
     specifier: ^0.3.4
     version: 0.3.4
   terser:
-    specifier: ^5.16.9
-    version: 5.16.9
+    specifier: ^5.17.0
+    version: 5.17.0
   typescript:
     specifier: ^5.0.4
     version: 5.0.4
@@ -757,7 +757,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001480
-      electron-to-chromium: 1.4.366
+      electron-to-chromium: 1.4.367
       node-releases: 2.0.10
       update-browserslist-db: 1.0.11(browserslist@4.21.5)
     dev: true
@@ -1082,8 +1082,8 @@ packages:
       readable-stream: 2.3.8
     dev: true
 
-  /electron-to-chromium@1.4.366:
-    resolution: {integrity: sha512-XjC4pyf1no8kJe24nUfyexpWwiGRbZWXU/KbprSEvXcTXUlr3Zr5vK3lQt2to0ttpMhAc3iENccwPSKbnEW2Fg==}
+  /electron-to-chromium@1.4.367:
+    resolution: {integrity: sha512-mNuDxb+HpLhPGUKrg0hSxbTjHWw8EziwkwlJNkFUj3W60ypigLDRVz04vU+VRsJPi8Gub+FDhYUpuTm9xiEwRQ==}
     dev: true
 
   /elliptic@6.5.4:
@@ -1977,8 +1977,8 @@ packages:
       readable-stream: 3.6.2
     dev: true
 
-  /terser@5.16.9:
-    resolution: {integrity: sha512-HPa/FdTB9XGI2H1/keLFZHxl6WNvAI4YalHGtDQTlMnJcoqSab1UwL4l1hGEhs6/GmLHBZIg/YgB++jcbzoOEg==}
+  /terser@5.17.0:
+    resolution: {integrity: sha512-3die3+pYW4mta4xF6K8Wtf7id8+oYyfqtAhjwzqY01+CfDSDMx/VA1Sp8sXWs5AVNIoAKoUfmp/gnPqRjBxuDA==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:

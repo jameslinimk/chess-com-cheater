@@ -301,20 +301,42 @@ export const loadPopup = () => {
                 currentDepth.innerText = info.cloud ? `${info.depth} (cloud)` : `${info.depth}`
 
                 clearArrows()
+
+                const parse = (evaluation: string) => {
+                    const e = (() => {
+                        if (evaluation.startsWith("M")) return 100
+                        if (evaluation.startsWith("M-")) return -100
+                        return parseFloat(evaluation)
+                    })()
+                    return currentColor.innerText === "White" ? e : -e
+                }
+
+                const bestEval = parse(info.evaluation)
                 for (let i = 0; i < info.lines.length; i++) {
                     if (i >= parseInt(currentMultiline.innerText)) break
 
-                    const move = info.lines[i]?.moves?.[0]
+                    const line = info.lines?.[i]
+                    const move = line?.moves?.[0]
                     if (!move) continue
 
                     const from = move.slice(0, 2)
                     const to = move.slice(2, 4)
 
+                    const evaluation = parse(line.evaluation)
+                    if (evaluation === bestEval) {
+                        createArrow(from, to, 1)
+                        continue
+                    }
+
+                    const diff = Math.abs(evaluation - bestEval)
                     const opacity = (() => {
-                        if (i === 0) return 1
-                        if (i === 1) return 0.3
-                        if (i === 2) return 0.1
+                        if (diff > 5) return 0.1
+                        if (diff > 3) return 0.2
+                        if (diff > 1) return 0.5
+                        if (diff > 0.5) return 0.7
+                        return 1
                     })()
+
                     createArrow(from, to, opacity)
                 }
             })

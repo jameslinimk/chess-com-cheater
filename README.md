@@ -1,11 +1,11 @@
 # Chess.com cheater
 
 | ⚠⚠⚠ NEVER USE THIS ON A REAL CHESS GAME. THIS IS A CHEAT. YOU WILL BE BANNED. THIS PROJECT WAS MADE MERELY FOR EDUCATION PURPOSES! ⚠⚠⚠ |
-| --- |
+| -------------------------------------------------------------------------------------------------------------------------------------- |
 
 Runs a Stockfish engine in your chess.com games. Displays the best moves (up to 3) and evaluation for the current board. Uses the bundled ASM/WASM engine on chess.com and the lichess cloud-eval api to get the best move.
 
-Because of the lack of cors headers on chess.com, a faster engine using SharedArrayBuffer is not possible. You can expect *~18 depth per second* in standard positions, although, in common positions and opening lines, cloud-eval will provide evaluations of 40+ depth.
+Because of the lack of cors headers on chess.com, a faster engine using SharedArrayBuffer is not possible. You can expect *~16 depth in a second* in standard positions, although, in common positions and opening lines, cloud-eval will provide evaluations of 40+ depth (using the lichess api).
 
 The extension gets the current game by looking at the moves on the right hand side. So, you will not be able to start the extension until you (or the opponent) has made a move.
 
@@ -30,6 +30,28 @@ The extension gets the current game by looking at the moves on the right hand si
   - Copy FEN - Copies the current FEN to your clipboard
   - Copy PGN - Copies the current PGN to your clipboard
   - Open in lichess - Opens the current board in the lichess analysis board
+
+## How the arrows are drawn
+
+> TLDR, the more transparent the arrow, the worse the move is compared to the best move.
+
+If the difference between the best move's evaluation and the arrows move is:
+
+| Difference     | Arrow opacity |
+| -------------- | ------------- |
+| `>5`           | 10%           |
+| `>3`           | 20%           |
+| `>1`           | 50%           |
+| `>0.5`         | 70%           |
+| any thing else | 100%          |
+
+## Building
+
+```bash
+npm i pnpm -g # if you don't have pnpm
+pnpm i
+pnpm run watch # builds to ./dist and watches for changes
+````
 
 ## Example
 

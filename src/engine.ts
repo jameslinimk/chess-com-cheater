@@ -28,7 +28,7 @@ export const updateEngine = () => {
     engine = new Worker(path())
 }
 
-interface Line {
+export interface Line {
     moves: string[]
     evaluation: string
 }
