@@ -1,16 +1,5 @@
 export interface Config {
-    "cometd.url": string
-    "domain.main": string
-    "domain.static": string
-    "domain.files": string
-    "domain.live": string
-    "domain.live2": string
-    "domain.live3": string
-    "domain.voice": string
-    "domain.cssjs": string
-    "domain.images": string
-    "domain.avatars": string
-    "domain.baseUrl": string
+    domain: Domain
     isFacebookCanvas: boolean
     facebookId: string
     pathToEngineWorker: string
@@ -27,7 +16,7 @@ export interface Config {
     pathToBookSmall: string
     pathToWebGL: string
     pathToGamePreviewLoader: string
-    pathToPersonalityBooks: { [key: string]: string }
+    pathToPersonalityBooks: PersonalityBooks
     threadedEnginePaths: ThreadedEnginePaths
     oldThemes: boolean
     isPlay: boolean
@@ -35,8 +24,7 @@ export interface Config {
     noAvatar: string
     wdlJsonModel: string
     wdlWeights: string
-    "ad.noAds": boolean
-    "ad.disabledAds": any[]
+    ad: Ad
     adCustomPath: string
     pathToTinyMCE: string
     pathToFCMWorker: string
@@ -44,11 +32,47 @@ export interface Config {
     pathToDiagramViewerJS: string
 }
 
-export interface ThreadedEnginePaths {
+interface PersonalityBooks {
+    aggressive: string
+    balanced: string
+    beginner: string
+    classical: string
+    "f-pawner": string
+    fischer: string
+    gambit: string
+    indian: string
+    nakamura: string
+    offbeat: string
+    positional: string
+    quick_queen: string
+    rensch: string
+    winger: string
+}
+
+interface Domain {
+    main: string
+    static: string
+    files: string
+    live: string
+    live2: string
+    live3: string
+    voice: string
+    cssjs: string
+    images: string
+    avatars: string
+    baseUrl: string
+}
+
+interface Ad {
+    noAds: boolean
+    disabledAds: any[]
+}
+
+interface ThreadedEnginePaths {
     stockfish: Stockfish
 }
 
-export interface Stockfish {
+interface Stockfish {
     fakeWorker: FakeWorker
     multiThreaded: MultiThreaded
     singleThreaded: FakeWorker
@@ -56,17 +80,17 @@ export interface Stockfish {
     fakeWorkerBrowserVersions: FakeWorkerBrowserVersion[]
 }
 
-export interface FakeWorker {
+interface FakeWorker {
     loader: string
     engine: string
 }
 
-export interface FakeWorkerBrowserVersion {
+interface FakeWorkerBrowserVersion {
     browser: string
     version: number
 }
 
-export interface MultiThreaded {
+interface MultiThreaded {
     loader: string
     engine: string
     nnue: string
