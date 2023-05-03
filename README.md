@@ -21,6 +21,7 @@ The extension gets the current game by looking at the moves on the right hand si
   - Current engine - Either ASM or Single Threaded WASM. Single is preferred, but is not supported on all browsers
   - Current color - The color you are playing as. The arrows will be flipped if incorrectly configured
   - Multi lines - How many moves to display (the more transparent, the worse)
+  - Max depth - The max depth to search to
 - The `Start hack`/`Stop hack` button will start/stop the engine
 - The next few lines are info about the current evaluation
   - Best move - The top engine move
@@ -48,7 +49,7 @@ If the difference between the best move's evaluation and the arrows move is:
 | `>3`           | 20%           |
 | `>1`           | 50%           |
 | `>0.5`         | 70%           |
-| any thing else | 100%          |
+| any thing else | 90%           |
 
 ## Building
 

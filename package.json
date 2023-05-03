@@ -19,21 +19,21 @@
         "watch:chrome": "watch \"npm run build:devChrome\" --interval=0.5 ./src"
     },
     "dependencies": {
-        "chess.js": "1.0.0-beta.4",
+        "chess.js": "1.0.0-beta.5",
         "copy-to-clipboard": "^3.3.3",
         "sync-fetch": "^0.4.2",
         "toastify-js": "^1.12.0",
         "watch": "^1.0.2"
     },
     "devDependencies": {
-        "@types/chrome": "^0.0.231",
+        "@types/chrome": "^0.0.235",
         "@types/sync-fetch": "^0.4.0",
         "@types/toastify-js": "^1.11.1",
         "bestzip": "^2.2.1",
         "browserify": "^17.0.0",
         "esmify": "^2.1.1",
         "shx": "^0.3.4",
-        "terser": "^5.17.0",
+        "terser": "^5.17.1",
         "typescript": "^5.0.4"
     },
     "type": "module"
