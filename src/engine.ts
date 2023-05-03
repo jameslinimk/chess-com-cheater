@@ -22,6 +22,13 @@ const path = () => {
 }
 
 export let engine: Worker = null
+let maxDepth: number = null
+export const setMaxDepth = (depth: number) => (maxDepth = depth)
+let multilines: number = null
+export const setMultilines = (lines: number) => {
+    multilines = lines
+    engine?.postMessage(`setoption name MultiPV value ${multilines}`)
+}
 
 export const updateEngine = () => {
     engine?.terminate()
@@ -37,11 +44,12 @@ interface Info {
     game: Chess
     depth: number
     evaluation: string
-    lines: [Line, Line, Line]
+    lines: [Line, Line, Line, Line, Line]
     cloud: boolean
 }
 
-const defaultLines = '[{"moves":[],"evaluation":""},{"moves":[],"evaluation":""},{"moves":[],"evaluation":""}]'
+const defaultLines =
+    '[{"moves":[],"evaluation":""},{"moves":[],"evaluation":""},{"moves":[],"evaluation":""},{"moves":[],"evaluation":""},{"moves":[],"evaluation":""}]'
 
 export const info = {
     game: null,
@@ -56,7 +64,7 @@ let checker = null
 
 const calcEval = (obj: { cp?: number; mate?: number }) => (!obj.mate ? `${obj.cp / 100}` : `M${obj.mate}`)
 
-export const startEval = async (chess: Chess, multilines = 1, callback: () => unknown) => {
+export const startEval = async (chess: Chess, callback: () => unknown) => {
     updateEngine()
     loadArrows()
 
@@ -71,7 +79,7 @@ export const startEval = async (chess: Chess, multilines = 1, callback: () => un
         const curMoves = getMoveCount()
         if (curMoves !== lastMoves) {
             lastMoves = curMoves
-            startEval(getChess(), multilines, callback)
+            startEval(getChess(), callback)
         }
     })
 
@@ -80,14 +88,14 @@ export const startEval = async (chess: Chess, multilines = 1, callback: () => un
     engine.postMessage("go infinite")
 
     const cloud = await cloudEval(fen, multilines)
-    if (cloud) {
+    if (cloud && cloud.depth <= (maxDepth === -1 ? 100 : maxDepth)) {
         info.cloud = true
         info.depth = cloud.depth
         info.evaluation = calcEval(cloud.pvs[0])
         info.lines = cloud.pvs.map((pv) => ({
             moves: pv.moves.split(" "),
             evaluation: calcEval(pv),
-        })) as [Line, Line, Line]
+        })) as [Line, Line, Line, Line, Line]
 
         callback()
         return
@@ -114,10 +122,16 @@ export const startEval = async (chess: Chess, multilines = 1, callback: () => un
 
         info.depth = depth
         if (ml === 1) info.evaluation = evaluation
-        if (ml <= 3) {
+        if (ml <= multilines) {
             info.lines[ml - 1].evaluation = evaluation
             info.lines[ml - 1].moves = mvs
         }
+
+        if (maxDepth !== -1 && depth >= maxDepth) {
+            engine.postMessage("stop")
+            callback()
+        }
+
         callback()
     }
 }

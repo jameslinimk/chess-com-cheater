@@ -31,6 +31,11 @@ The extension gets the current game by looking at the moves on the right hand si
   - Copy PGN - Copies the current PGN to your clipboard
   - Open in lichess - Opens the current board in the lichess analysis board
 
+## ⚠ Must have Chess.com Settings
+
+- You must have "none" for move animations, "arcade" breaks it
+- You must have "figurine" for piece notations, "text" breaks it
+
 ## How the arrows are drawn
 
 > TLDR, the more transparent the arrow, the worse the move is compared to the best move.

@@ -2,7 +2,7 @@ import type { Chess } from "chess.js"
 import copy from "copy-to-clipboard"
 import { clearArrows, createArrow, hideArrows, showArrows } from "./arrows.js"
 import { getChess } from "./content.js"
-import { info, startEval, stopEval, updateEngine } from "./engine.js"
+import { info, setMaxDepth, setMultilines, startEval, stopEval, updateEngine } from "./engine.js"
 import { toast } from "./util.js"
 
 const inactiveColor = "#7286D3"
@@ -16,32 +16,38 @@ const html = `
         <p class="cc-subtitle">Hide with shift+a</p>
 
         Current engine: <span id="cc-current-engine">Single</span>
-		<br />
+        <br />
         <button class="cc-button" id="cc-single-button">
             Single thread
         </button>
-		<button class="cc-button" id="cc-asm-button">
-			ASM
-		</button>
+        <button class="cc-button" id="cc-asm-button">
+            ASM
+        </button>
 
         <br />
 
-		Current color: <span id="cc-current-color">White</span>
-		<br />
-		<button class="cc-button" id="cc-white-button">
-			White
-		</button>
-		<button class="cc-button" id="cc-black-button">
-			Black
-		</button>
+        Current color: <span id="cc-current-color">White</span>
+        <br />
+        <button class="cc-button" id="cc-white-button">
+            White
+        </button>
+        <button class="cc-button" id="cc-black-button">
+            Black
+        </button>
 
-		<br />
+        <br />
 
         Multi lines: <span id="cc-current-multiline">3</span>
         <button class="cc-button" style="padding-left: 4px; padding-right: 4px" id="cc-ml-plus-button">+</button>
         <button class="cc-button" style="padding-left: 7px; padding-right: 7px" id="cc-ml-minus-button">-</button>
 
         <br />
+
+        <div class="cc-slide-container">
+            Max depth: <span id="cc-current-max-depth">∞</span>
+            <input type="range" min="1" max="31" value="31" class="cc-slider" id="cc-max-depth-slider">
+        </div>
+
         <br />
 
         <button class="cc-button" style="background-color: ${inactiveColor}" id="cc-start-button">Start hack</button>
@@ -53,57 +59,57 @@ const html = `
         Eval (for white): <span id="cc-current-eval">0</span> <br />
         Depth: <span id="cc-current-depth">0</span>
 
-		<br />
-		<br />
+        <br />
+        <br />
 
-		<button class="cc-button" id="cc-fen-button">
-			Copy FEN
-		</button>
-		<button class="cc-button" id="cc-pgn-button">
-			Copy PGN
-		</button>
-		<br />
-		<div class="cc-center-parent">
-			<button class="cc-button" id="cc-lichess-button">
-				Open in lichess
-			</button>
-		</div>
+        <button class="cc-button" id="cc-fen-button">
+            Copy FEN
+        </button>
+        <button class="cc-button" id="cc-pgn-button">
+            Copy PGN
+        </button>
+        <br />
+        <div class="cc-center-parent">
+            <button class="cc-button" id="cc-lichess-button">
+                Open in lichess
+            </button>
+        </div>
     </div>
 </div>
 `
 
 const css = `
 .cc-parent {
-	display: flex;
-	flex-direction: column;
-	position: fixed;
-	top: 100px;
-	left: 50px;
-	box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-	z-index: 2147483647;
-    width: 231px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 100px;
+    left: 50px;
+    box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2),0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    z-index: 2147483647;
+  width: 231px;
 }
 
 .cc-dragger {
-	height: 20px;
-	background-color: #A59D95;
-	cursor: grab;
+    height: 20px;
+    background-color: #A59D95;
+    cursor: grab;
 }
 
 .cc-content {
-	background-color: #FAF9F6;
-	box-sizing: border-box;
-	padding: 10px;
-	color: black;
-	font-family: Verdana, sans-serif;
+    background-color: #FAF9F6;
+    box-sizing: border-box;
+    padding: 10px;
+    color: black;
+    font-family: Verdana, sans-serif;
 }
 
 .cc-title {
-	margin-top: 0px;
-	margin-bottom: 0px;
-	margin-right: 0px;
-	margin-left: 0px;
-	text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    text-align: center;
 }
 
 .cc-help {
@@ -112,38 +118,77 @@ const css = `
 }
 
 .cc-subtitle {
-	margin-top: 0px;
-	margin-bottom: 10px;
-	margin-right: 0px;
-	margin-left: 0px;
-	text-align: center;
-	font-size: 13px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    margin-right: 0px;
+    margin-left: 0px;
+    text-align: center;
+    font-size: 13px;
 }
 
 .cc-button {
-	font-family: Verdana, sans-serif;
-	background-color: #413931;
-	border: none;
-	color: white;
-	padding: 5px 12px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 0px;
-	cursor: pointer;
-	transition: all 0.15s ease-in-out;
+    font-family: Verdana, sans-serif;
+    background-color: #413931;
+    border: none;
+    color: white;
+    padding: 5px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 0px;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
 }
 
 .cc-button:hover {
-	background-color: #A59D95 !important;
+    background-color: #A59D95 !important;
 }
 
 .cc-center-parent {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.cc-slide-container {
+    margin-top: 3px;
+}
+
+.cc-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 15px;
+    margin-top: 7px;
+    border-radius: 5px;
+    background: #413931;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+}
+
+.cc-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: black;
+    cursor: pointer;
+}
+
+.cc-slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: black;
+    cursor: pointer;
+}
+
+.cc-slider:hover {
+    opacity: 1;
 }
 `
 
@@ -263,16 +308,49 @@ export const loadPopup = () => {
     const plusButton = document.getElementById("cc-ml-plus-button") as HTMLButtonElement
     const minusButton = document.getElementById("cc-ml-minus-button") as HTMLButtonElement
 
-    const saveML = () => localStorage.setItem("cc-popup-multilines", currentMultiline.innerText)
+    const saveML = () => {
+        localStorage.setItem("cc-popup-multilines", currentMultiline.innerText)
+        setMultilines(parseInt(currentMultiline.innerText))
+    }
+    setMultilines(parseInt(currentMultiline.innerText))
     plusButton.addEventListener("click", () => {
         const current = parseInt(currentMultiline.innerText)
-        currentMultiline.innerText = `${Math.min(current + 1, 3)}`
+        currentMultiline.innerText = `${Math.min(current + 1, 5)}`
         saveML()
     })
     minusButton.addEventListener("click", () => {
         const current = parseInt(currentMultiline.innerText)
         currentMultiline.innerText = `${Math.max(current - 1, 1)}`
         saveML()
+    })
+
+    /* -------------------------------- Max depth ------------------------------- */
+    const currentMaxDepth = document.getElementById("cc-current-max-depth") as HTMLSpanElement
+    const localMaxDepth = localStorage.getItem("cc-popup-max-depth")
+    if (localMaxDepth) currentMaxDepth.innerText = localMaxDepth
+
+    const maxDepthSlider = document.getElementById("cc-max-depth-slider") as HTMLInputElement
+    if (currentMaxDepth.innerText === "∞") maxDepthSlider.value = "31"
+    else maxDepthSlider.value = currentMaxDepth.innerText
+
+    let saveMaxDepthDelay: number
+
+    const saveMaxDepth = (delay = true) => {
+        if (saveMaxDepthDelay) clearTimeout(saveMaxDepthDelay)
+        saveMaxDepthDelay = setTimeout(
+            () => {
+                localStorage.setItem("cc-popup-max-depth", currentMaxDepth.innerText)
+                if (currentMaxDepth.innerText === "∞") setMaxDepth(-1)
+                else setMaxDepth(parseInt(currentMaxDepth.innerText))
+            },
+            delay ? 200 : 0
+        )
+    }
+    saveMaxDepth(false)
+
+    maxDepthSlider.addEventListener("input", () => {
+        currentMaxDepth.innerText = parseInt(maxDepthSlider.value) === 31 ? "∞" : maxDepthSlider.value
+        saveMaxDepth()
     })
 
     /* ------------------------------ Start button ------------------------------ */
@@ -295,7 +373,7 @@ export const loadPopup = () => {
 
             startButton.innerText = "Stop hack"
             startButton.style.backgroundColor = activeColor
-            startEval(chess, parseInt(currentMultiline.innerText), () => {
+            startEval(chess, () => {
                 currentBM.innerText = info?.lines[0]?.moves?.[0] ?? "N/A"
                 currentEval.innerText = info.evaluation
                 currentDepth.innerText = info.cloud ? `${info.depth} (cloud)` : `${info.depth}`
@@ -334,7 +412,7 @@ export const loadPopup = () => {
                         if (diff > 3) return 0.2
                         if (diff > 1) return 0.5
                         if (diff > 0.5) return 0.7
-                        return 1
+                        return 0.9
                     })()
 
                     createArrow(from, to, opacity)
