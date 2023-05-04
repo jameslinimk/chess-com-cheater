@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Chess.com cheats",
-    "version": "1.5",
+    "version": "1.51",
     "description": "Runs a WASM Stockfish in your chess.com games. Displays the best moves (up to 3) and evaluation for the current board.",
     "icons": {
         "48": "icons/icon-48.png",

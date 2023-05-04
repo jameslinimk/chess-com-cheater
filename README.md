@@ -45,11 +45,11 @@ If the difference between the best move's evaluation and the arrows move is:
 
 | Difference     | Arrow opacity |
 | -------------- | ------------- |
-| `>5`           | 10%           |
-| `>3`           | 20%           |
-| `>1`           | 50%           |
-| `>0.5`         | 70%           |
-| any thing else | 90%           |
+| `>5`           | 5%            |
+| `>3`           | 10%           |
+| `>1`           | 30%           |
+| `>0.5`         | 50%           |
+| any thing else | 60%           |
 
 ## Building
 

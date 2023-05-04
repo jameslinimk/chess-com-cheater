@@ -408,11 +408,11 @@ export const loadPopup = () => {
 
                     const diff = Math.abs(evaluation - bestEval)
                     const opacity = (() => {
-                        if (diff > 5) return 0.1
-                        if (diff > 3) return 0.2
-                        if (diff > 1) return 0.5
-                        if (diff > 0.5) return 0.7
-                        return 0.9
+                        if (diff > 5) return 0.05
+                        if (diff > 3) return 0.1
+                        if (diff > 1) return 0.3
+                        if (diff > 0.5) return 0.6
+                        return 0.7
                     })()
 
                     createArrow(from, to, opacity)
