@@ -1,10 +1,10 @@
 import Toast from "toastify-js"
 
-const getVersion = (): Promise<string> =>
+const getVersion = (): Promise<any> =>
     new Promise((resolve) => {
         chrome.runtime.sendMessage(
             {
-                id: "fetchText",
+                id: "fetchData",
                 url: "https://raw.githack.com/jameslinimk/chess-com-cheater/master/static/manifest.json",
             },
             (response) => {
@@ -15,15 +15,8 @@ const getVersion = (): Promise<string> =>
     })
 
 export const checkVersion = async () => {
-    const res = await getVersion()
-    if (!res) return
-
-    let manifest: { version: string }
-    try {
-        manifest = JSON.parse(res)
-    } catch {
-        return
-    }
+    const manifest: { version: string } = await getVersion()
+    if (!manifest) return
 
     const url = chrome.runtime.getURL("manifest.json")
     const local: { version: string } = await (await fetch(url)).json()
