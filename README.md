@@ -18,6 +18,8 @@ The extension gets the current game by looking at the moves on the right hand si
 *Use the black bar at the top to move the popup window around
 
 - The first few lines are engine options
+  - Game mode - Standard reads the moves from the movelist on the right. FEN reads from the chess-board object. Standard is preferred, but FEN is more reliable. FEN is also required for custom positions
+    - FEN works even if the chess-board is not in a game (such as analysis) and does not require one move to be played, but can't detect castling rights
   - Current engine - Either ASM or Single Threaded WASM. Single is preferred, but is not supported on all browsers
   - Current color - The color you are playing as. The arrows will be flipped if incorrectly configured
   - Multi lines - How many moves to display (the more transparent, the worse)

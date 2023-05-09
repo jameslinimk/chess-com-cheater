@@ -1,0 +1,7 @@
+node_modules
+.history
+dist
+temp
+chess-cheats.zip
+src/util_chrome.temp.ts
+src/util_firefox.temp.ts

@@ -1,40 +1,40 @@
 {
-    "name": "chess-com-cheater",
-    "scripts": {
-        "build:static": "shx cp -r static/* dist && shx rm dist/chrome_manifest.json",
-        "build:chromeManifest": "shx cp static/chrome_manifest.json dist/manifest.json",
-        "build:content": "browserify -p esmify temp/content.js -o temp/content.bundle.js && terser temp/content.bundle.js -m -c --comments false -o dist/content.bundle.min.js",
-        "build:bg": "browserify -p esmify temp/background.js -o temp/background.bundle.js && terser temp/background.bundle.js -m -c --comments false -o dist/background.bundle.min.js",
-        "build:devContent": "browserify -p esmify temp/content.js -o dist/content.bundle.min.js",
-        "build:devBg": "browserify -p esmify temp/background.js -o dist/background.bundle.min.js",
-        "build": "shx rm -rf dist && shx mkdir dist && shx rm -rf temp && shx mkdir temp && npm run build:static && tsc -B && npm run build:content && npm run build:bg && shx rm -rf temp && shx echo Done!",
-        "build:dev": "shx rm -rf dist && shx mkdir dist && shx rm -rf temp && shx mkdir temp && npm run build:static && tsc -B && npm run build:devContent && npm run build:devBg && shx rm -rf temp && shx echo Done!",
-        "build:chrome": "shx rm -rf dist && shx mkdir dist && shx rm -rf temp && shx mkdir temp && npm run build:static && npm run build:chromeManifest && npm run build:switch && tsc -B && npm run build:switchEnd && npm run build:content && npm run build:bg && shx rm -rf temp && shx echo Done!",
-        "build:devChrome": "shx rm -rf dist && shx mkdir dist && shx rm -rf temp && shx mkdir temp && npm run build:static && npm run build:chromeManifest && npm run build:switch && tsc -B && npm run build:switchEnd && npm run build:devContent && npm run build:devBg && shx rm -rf temp && shx echo Done!",
-        "build:switch": "shx cp src/util_firefox.ts src/util_firefox.temp.ts && shx cp src/util_chrome.ts src/util_chrome.temp.ts && shx mv src/util_chrome.ts src/util_firefox.ts",
-        "build:switchEnd": "shx mv src/util_firefox.temp.ts src/util_firefox.ts && shx mv src/util_chrome.temp.ts src/util_chrome.ts",
-        "build:zip": "cd dist && bestzip ../chess-cheats.zip *",
-        "build:zipChrome": "cd dist && bestzip ../chess-cheats-v3.zip *",
-        "watch": "watch \"npm run build:dev\" --interval=0.5 ./src",
-        "watch:chrome": "watch \"npm run build:devChrome\" --interval=0.5 ./src"
-    },
-    "dependencies": {
-        "chess.js": "1.0.0-beta.5",
-        "copy-to-clipboard": "^3.3.3",
-        "sync-fetch": "^0.4.2",
-        "toastify-js": "^1.12.0",
-        "watch": "^1.0.2"
-    },
-    "devDependencies": {
-        "@types/chrome": "^0.0.235",
-        "@types/sync-fetch": "^0.4.0",
-        "@types/toastify-js": "^1.11.1",
-        "bestzip": "^2.2.1",
-        "browserify": "^17.0.0",
-        "esmify": "^2.1.1",
-        "shx": "^0.3.4",
-        "terser": "^5.17.1",
-        "typescript": "^5.0.4"
-    },
-    "type": "module"
+	"name": "chess-com-cheater",
+	"scripts": {
+		"build:static": "shx cp -r static/* dist && shx rm dist/chrome_manifest.json",
+		"build:chromeManifest": "shx cp static/chrome_manifest.json dist/manifest.json",
+		"build:content": "browserify -p esmify temp/content.js -o temp/content.bundle.js && terser temp/content.bundle.js -m -c --comments false -o dist/content.bundle.min.js",
+		"build:bg": "browserify -p esmify temp/background.js -o temp/background.bundle.js && terser temp/background.bundle.js -m -c --comments false -o dist/background.bundle.min.js",
+		"build:devContent": "browserify -p esmify temp/content.js -o dist/content.bundle.min.js",
+		"build:devBg": "browserify -p esmify temp/background.js -o dist/background.bundle.min.js",
+		"build": "shx rm -rf dist && shx mkdir dist && shx rm -rf temp && shx mkdir temp && npm run build:static && tsc -B && npm run build:content && npm run build:bg && shx rm -rf temp && shx echo Done!",
+		"build:dev": "shx rm -rf dist && shx mkdir dist && shx rm -rf temp && shx mkdir temp && npm run build:static && tsc -B && npm run build:devContent && npm run build:devBg && shx rm -rf temp && shx echo Done!",
+		"build:chrome": "shx rm -rf dist && shx mkdir dist && shx rm -rf temp && shx mkdir temp && npm run build:static && npm run build:chromeManifest && npm run build:switch && tsc -B && npm run build:switchEnd && npm run build:content && npm run build:bg && shx rm -rf temp && shx echo Done!",
+		"build:devChrome": "shx rm -rf dist && shx mkdir dist && shx rm -rf temp && shx mkdir temp && npm run build:static && npm run build:chromeManifest && npm run build:switch && tsc -B && npm run build:switchEnd && npm run build:devContent && npm run build:devBg && shx rm -rf temp && shx echo Done!",
+		"build:switch": "shx cp src/util_firefox.ts src/util_firefox.temp.ts && shx cp src/util_chrome.ts src/util_chrome.temp.ts && shx mv src/util_chrome.ts src/util_firefox.ts",
+		"build:switchEnd": "shx mv src/util_firefox.temp.ts src/util_firefox.ts && shx mv src/util_chrome.temp.ts src/util_chrome.ts",
+		"build:zip": "cd dist && bestzip ../chess-cheats.zip *",
+		"build:zipChrome": "cd dist && bestzip ../chess-cheats-v3.zip *",
+		"watch": "watch \"npm run build:dev\" --interval=0.5 ./src",
+		"watch:chrome": "watch \"npm run build:devChrome\" --interval=0.5 ./src"
+	},
+	"dependencies": {
+		"chess.js": "1.0.0-beta.5",
+		"copy-to-clipboard": "^3.3.3",
+		"sync-fetch": "^0.4.2",
+		"toastify-js": "^1.12.0",
+		"watch": "^1.0.2"
+	},
+	"devDependencies": {
+		"@types/chrome": "^0.0.235",
+		"@types/sync-fetch": "^0.4.0",
+		"@types/toastify-js": "^1.11.1",
+		"bestzip": "^2.2.1",
+		"browserify": "^17.0.0",
+		"esmify": "^2.1.1",
+		"shx": "^0.3.4",
+		"terser": "^5.17.2",
+		"typescript": "^5.0.4"
+	},
+	"type": "module"
 }
