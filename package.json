@@ -33,7 +33,7 @@
 		"browserify": "^17.0.0",
 		"esmify": "^2.1.1",
 		"shx": "^0.3.4",
-		"terser": "^5.17.2",
+		"terser": "^5.17.3",
 		"typescript": "^5.0.4"
 	},
 	"type": "module"
