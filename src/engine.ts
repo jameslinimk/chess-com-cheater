@@ -132,7 +132,7 @@ export const stopEval = (callback: () => unknown) => {
 	callback()
 }
 
-type UciCommands = "id" | "uciok" | "readyok" | "copyprotection" | "registration" | "option" | "info" | "bestmove" | "Stockfish.js"
+type UciCommands = "id" | "uciok" | "readyok" | "copyprotection" | "registration" | "option" | "info" | "bestmove" | "Stockfish.js" | "Stockfish"
 const uciInfo: Record<UciCommands, string[]> = {
 	id: ["name", "author"],
 	uciok: [],
@@ -166,6 +166,7 @@ const uciInfo: Record<UciCommands, string[]> = {
 	],
 	bestmove: ["main", "ponder"],
 	"Stockfish.js": [],
+	Stockfish: [],
 }
 
 const parseUci = (uci: string) => {

@@ -5,7 +5,7 @@ const getVersion = (): Promise<any> =>
 		chrome.runtime.sendMessage(
 			{
 				id: "fetchData",
-				url: "https://rawcdn.githack.com/jameslinimk/chess-com-cheater/master/static/manifest.json",
+				url: "https://raw.githack.com/jameslinimk/chess-com-cheater/master/static/manifest.json",
 			},
 			(response) => {
 				if (response?.error) resolve(null)

@@ -7,36 +7,41 @@ import { checkVersion } from "./version.js"
 export const getMoveCount = () => document.querySelectorAll("div[data-ply]:not(.time-white):not(.time-black)").length
 
 export const getFen = () => {
-	const fen = []
-	for (let y = 8; y > 0; y--) {
-		let row = ""
-		let empty = 0
-		for (let x = 1; x <= 8; x++) {
-			const elms = document.getElementsByClassName(`square-${x}${y}`)
-			const classList = Array.from(elms).find((e) => !e.classList.contains("highlight"))?.classList
-			const classes = classList ? Array.from(classList) : []
+	let fen_string = ""
+	for (var y = 8; y >= 1; y--) {
+		for (var x = 1; x <= 8; x++) {
+			if (x == 1 && y != 8) fen_string += "/"
 
-			let pieceStr = classes.find((c) => c.length === 2)
+			let piece: string = null
+			const position = `${x}${y}`
 
-			if (!pieceStr) {
-				empty += 1
-				if (x === 8) row += empty
-				continue
+			const classes = document.querySelectorAll(`.piece.square-${position}`)[0]?.classList ?? null
+			if (classes !== null) {
+				for (var item of (classes as any).values() as string[]) {
+					if (item.length == 2) {
+						piece = item
+					}
+				}
 			}
 
-			if (empty !== 0) {
-				row += empty
-				empty = 0
+			if (piece === null) {
+				let previous_char = fen_string.split("").pop()
+				if (!isNaN(Number(previous_char))) {
+					fen_string = fen_string.substring(0, fen_string.length - 1)
+					fen_string += Number(previous_char) + 1
+				} else {
+					fen_string += "1"
+				}
+			} else if (piece.split("")[0] === "b") {
+				fen_string += piece.split("")[1]
+			} else if (piece.split("")[0] === "w") {
+				fen_string += piece.split("")[1].toUpperCase()
 			}
-
-			const [color, piece] = pieceStr
-			if (color === "w") row += piece.toUpperCase()
-			else row += piece.toLowerCase()
 		}
-		fen.push(row)
 	}
+
 	const turn = getMoveCount() % 2 === 0 ? "w" : "b"
-	return `${fen.join("/")} ${turn} - - 0 1`
+	return `${fen_string} ${turn}`
 }
 
 const getMoves = () => {

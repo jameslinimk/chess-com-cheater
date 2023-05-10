@@ -1,4 +1,4 @@
-export const retrieveWindowVariable = (variable: string): any => ({
+export const retrieveWindowVariable = (_: string): any => ({
 	threadedEnginePaths: {
 		stockfish: {
 			fakeWorker: {

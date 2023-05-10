@@ -10,196 +10,196 @@ const activeColor = "#D2001A"
 
 const html = `
 <div class="cc-parent" id="cc-parent">
-    <div class="cc-dragger" id="cc-dragger"></div>
-    <div class="cc-content">
-        <h1 class="cc-title">Cheat menu <a class="cc-help" href="https://github.com/jameslinimk/chess-com-cheater" target="_blank">❓</a></h1>
-        <p class="cc-subtitle">Hide with shift+a</p>
+	<div class="cc-dragger" id="cc-dragger"></div>
+	<div class="cc-content">
+		<h1 class="cc-title">Cheat menu <a class="cc-help" href="https://github.com/jameslinimk/chess-com-cheater" target="_blank">❓</a></h1>
+		<p class="cc-subtitle">Hide with shift+a</p>
 
-        Game mode: <span id="cc-current-gamemode">Single</span>
-        <br />
-        <button class="cc-button" id="cc-standard-mode-button">
-            Standard
-        </button>
-        <button class="cc-button" id="cc-fen-mode-button">
-            FEN Mode
-        </button>
+		Game mode: <span id="cc-current-gamemode">Single</span>
+		<br />
+		<button class="cc-button" id="cc-standard-mode-button">
+			Standard
+		</button>
+		<button class="cc-button" id="cc-fen-mode-button">
+			FEN Mode
+		</button>
 
-        <br />
+		<br />
 
-        Current engine: <span id="cc-current-engine">Single</span>
-        <br />
-        <button class="cc-button" id="cc-single-button">
-            Single thread
-        </button>
-        <button class="cc-button" id="cc-asm-button">
-            ASM
-        </button>
+		Current engine: <span id="cc-current-engine">Single</span>
+		<br />
+		<button class="cc-button" id="cc-single-button">
+			Single thread
+		</button>
+		<button class="cc-button" id="cc-asm-button">
+			ASM
+		</button>
 
-        <br />
+		<br />
 
-        Current color: <span id="cc-current-color">White</span>
-        <br />
-        <button class="cc-button" id="cc-white-button">
-            White
-        </button>
-        <button class="cc-button" id="cc-black-button">
-            Black
-        </button>
+		Current color: <span id="cc-current-color">White</span>
+		<br />
+		<button class="cc-button" id="cc-white-button">
+			White
+		</button>
+		<button class="cc-button" id="cc-black-button">
+			Black
+		</button>
 
-        <br />
+		<br />
 
-        Multi lines: <span id="cc-current-multiline">3</span>
-        <button class="cc-button" style="padding-left: 4px; padding-right: 4px" id="cc-ml-plus-button">+</button>
-        <button class="cc-button" style="padding-left: 7px; padding-right: 7px" id="cc-ml-minus-button">-</button>
+		Multi lines: <span id="cc-current-multiline">3</span>
+		<button class="cc-button" style="padding-left: 4px; padding-right: 4px" id="cc-ml-plus-button">+</button>
+		<button class="cc-button" style="padding-left: 7px; padding-right: 7px" id="cc-ml-minus-button">-</button>
 
-        <br />
+		<br />
 
-        <div class="cc-slide-container">
-            Max depth: <span id="cc-current-max-depth">∞</span>
-            <input type="range" min="1" max="31" value="31" class="cc-slider" id="cc-max-depth-slider">
-        </div>
+		<div class="cc-slide-container">
+			Max depth: <span id="cc-current-max-depth">∞</span>
+			<input type="range" min="1" max="31" value="31" class="cc-slider" id="cc-max-depth-slider">
+		</div>
 
-        <br />
+		<br />
 
-        <button class="cc-button" style="background-color: ${inactiveColor}" id="cc-start-button">Start hack</button>
+		<button class="cc-button" style="background-color: ${inactiveColor}" id="cc-start-button">Start hack</button>
 
-        <br />
-        <br />
+		<br />
+		<br />
 
-        Best move: <span id="cc-current-bm">N/A</span> <br />
-        Eval (for white): <span id="cc-current-eval">0</span> <br />
-        Depth: <span id="cc-current-depth">0</span>
+		Best move: <span id="cc-current-bm">N/A</span> <br />
+		Eval (for white): <span id="cc-current-eval">0</span> <br />
+		Depth: <span id="cc-current-depth">0</span>
 
-        <br />
-        <br />
+		<br />
+		<br />
 
-        <button class="cc-button" id="cc-fen-button">
-            Copy FEN
-        </button>
-        <button class="cc-button" id="cc-pgn-button">
-            Copy PGN
-        </button>
-        <br />
-        <div class="cc-center-parent">
-            <button class="cc-button" id="cc-lichess-button">
-                Open in lichess
-            </button>
-        </div>
-    </div>
+		<button class="cc-button" id="cc-fen-button">
+			Copy FEN
+		</button>
+		<button class="cc-button" id="cc-pgn-button">
+			Copy PGN
+		</button>
+		<br />
+		<div class="cc-center-parent">
+			<button class="cc-button" id="cc-lichess-button">
+				Open in lichess
+			</button>
+		</div>
+	</div>
 </div>
 `
 
 const css = `
 .cc-parent {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 100px;
-    left: 50px;
-    box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2),0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    z-index: 2147483647;
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	top: 100px;
+	left: 50px;
+	box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2),0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	z-index: 2147483647;
   width: 231px;
 }
 
 .cc-dragger {
-    height: 20px;
-    background-color: #A59D95;
-    cursor: grab;
+	height: 20px;
+	background-color: #A59D95;
+	cursor: grab;
 }
 
 .cc-content {
-    background-color: #FAF9F6;
-    box-sizing: border-box;
-    padding: 10px;
-    color: black;
-    font-family: Verdana, sans-serif;
+	background-color: #FAF9F6;
+	box-sizing: border-box;
+	padding: 10px;
+	color: black;
+	font-family: Verdana, sans-serif;
 }
 
 .cc-title {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-right: 0px;
-    margin-left: 0px;
-    text-align: center;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: 0px;
+	margin-left: 0px;
+	text-align: center;
 }
 
 .cc-help {
-    cursor: pointer;
-    margin-left: -2px;
+	cursor: pointer;
+	margin-left: -2px;
 }
 
 .cc-subtitle {
-    margin-top: 0px;
-    margin-bottom: 10px;
-    margin-right: 0px;
-    margin-left: 0px;
-    text-align: center;
-    font-size: 13px;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	margin-right: 0px;
+	margin-left: 0px;
+	text-align: center;
+	font-size: 13px;
 }
 
 .cc-button {
-    font-family: Verdana, sans-serif;
-    background-color: #413931;
-    border: none;
-    color: white;
-    padding: 5px 12px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 0px;
-    cursor: pointer;
-    transition: all 0.15s ease-in-out;
+	font-family: Verdana, sans-serif;
+	background-color: #413931;
+	border: none;
+	color: white;
+	padding: 5px 12px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 0px;
+	cursor: pointer;
+	transition: all 0.15s ease-in-out;
 }
 
 .cc-button:hover {
-    background-color: #A59D95 !important;
+	background-color: #A59D95 !important;
 }
 
 .cc-center-parent {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
 }
 
 .cc-slide-container {
-    margin-top: 3px;
+	margin-top: 3px;
 }
 
 .cc-slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 15px;
-    margin-top: 7px;
-    border-radius: 5px;
-    background: #413931;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: 0.2s;
-    transition: opacity 0.2s;
+	-webkit-appearance: none;
+	width: 100%;
+	height: 15px;
+	margin-top: 7px;
+	border-radius: 5px;
+	background: #413931;
+	outline: none;
+	opacity: 0.7;
+	-webkit-transition: 0.2s;
+	transition: opacity 0.2s;
 }
 
 .cc-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: black;
-    cursor: pointer;
+	-webkit-appearance: none;
+	appearance: none;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: black;
+	cursor: pointer;
 }
 
 .cc-slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: black;
-    cursor: pointer;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: black;
+	cursor: pointer;
 }
 
 .cc-slider:hover {
-    opacity: 1;
+	opacity: 1;
 }
 `
 
