@@ -481,12 +481,10 @@ export const loadPopup = () => {
 	fenButton.addEventListener("click", () => {
 		if (!gameExists()) return
 		copyText(info.game.fen(), "FEN")
-		toast("FEN copied to clipboard.", "#413931")
 	})
 	pgnButton.addEventListener("click", () => {
 		if (!gameExists()) return
 		copyText(info.game.pgn(), "PGN")
-		toast("PGN copied to clipboard.", "#413931")
 	})
 
 	/* ----------------------------- Lichess button ----------------------------- */
