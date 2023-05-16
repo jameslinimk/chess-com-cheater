@@ -222,6 +222,7 @@ export const loadPopup = () => {
 				showArrows()
 				parent.style.display = "flex"
 				localStorage.setItem("cc-popup", "true")
+				boundParent()
 			} else {
 				hideArrows()
 				parent.style.display = "none"
@@ -272,6 +273,7 @@ export const loadPopup = () => {
 		})
 	})
 	window.addEventListener("resize", () => boundParent())
+	setTimeout(() => boundParent(), 1000)
 
 	/* -------------------------------- Game mode ------------------------------- */
 	const currentGameMode = document.getElementById("cc-current-gamemode") as HTMLSpanElement

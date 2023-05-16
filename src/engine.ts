@@ -98,7 +98,6 @@ export const startEval = async (chess: Chess, callback: () => unknown) => {
 	}
 
 	engine.onmessage = (msg) => {
-		colorLog("gray", `[ENGINE] ${msg.data}`)
 		const data = parseUci(msg.data)
 		if (data.command !== "info") return
 

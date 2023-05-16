@@ -1,7 +1,6 @@
 import { Chess } from "chess.js"
 import { engine } from "./engine.js"
 import { loadPopup } from "./popup.js"
-import { colorLog } from "./util.js"
 import { checkVersion } from "./version.js"
 
 export const getMoveCount = () => document.querySelectorAll("div[data-ply]:not(.time-white):not(.time-black)").length
@@ -80,7 +79,12 @@ export const getChess = (forcedGamemode: string = null) => {
 	}
 }
 
-colorLog("green", "Starting chess.com cheats...")
+console.log(
+	"         %chttps://github.com/jameslinimk/chess-com-cheater%c - by Linimik\n" + "%c♔ Chess.com cheats initialized ♕",
+	"text-decoration: underline; color: gray; background: #222",
+	"color: white; background: #222",
+	"color: green; background: #222; font-size: 250%",
+)
 checkVersion()
 engine
 
