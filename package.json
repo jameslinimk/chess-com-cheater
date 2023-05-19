@@ -19,7 +19,7 @@
 		"watch:chrome": "watch \"npm run build:devChrome\" --interval=0.5 ./src"
 	},
 	"dependencies": {
-		"chess.js": "1.0.0-beta.5",
+		"chess.js": "1.0.0-beta.6",
 		"copy-to-clipboard": "^3.3.3",
 		"sync-fetch": "^0.4.2",
 		"toastify-js": "^1.12.0",
